@@ -24,13 +24,13 @@
 			String username = request.getParameter("username");
 			String password = request.getParameter("password");
 			String user_type = request.getParameter("user_type");
+
+			ResultSet login_info;
+			if(user_type.equals("User")) login_info = stmt.executeQuery("select * from users where username='"+username+"' and password='"+password+"'");
+			else if (user_type.equals("Customer Representatives")) login_info = stmt.executeQuery("select * from CustomerServiceRep where username='"+username+"' and password='"+password+"'");
+			else login_info = stmt.executeQuery("select * from admin where username='"+username+"' and password='"+password+"'");
 			
-			ResultSet login_info = stmt.executeQuery("select * from users where username='"+username+"' and password='"+password+"' and user_type='"+user_type+"'");
-			
-			if(login_info.getString("username").equals(username) && login_info.getString("password").equals(password) 
-		    && login_info.getString("user_type").equals(user_type)) out.println("Welcome " + login_info.getString("username"));
-			else out.println("Invalid credentials.");
-			
+	
 			//close the connection.
 			con.close();
 
