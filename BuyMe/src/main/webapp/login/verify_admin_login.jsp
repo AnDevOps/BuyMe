@@ -27,7 +27,7 @@
 			
 			if(login_info.next()) {
 				if(username.length() != 0 && username != null && password.length() != 0 && password != null) {
-					session.setAttribute("user", username);
+					session.setAttribute("admin", username);
 					
 					out.println("Login Success: " + username);
 					response.sendRedirect("customer/home_page.jsp");
