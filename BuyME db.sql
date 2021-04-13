@@ -154,10 +154,10 @@ DROP TABLE IF EXISTS `shoes`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `shoes` (
   `item_id` integer NOT NULL DEFAULT 0,
-  `shoe_size` integer NOT NULL DEFAULT 0,
+`size` varchar(50) DEFAULT NULL,
   `gender` varchar(10) DEFAULT NULL,
   `color` varchar(50) DEFAULT NULL,
-  `type_of_shoe` varchar(50) DEFAULT NULL,
+  `type` varchar(50) DEFAULT NULL,
   `clothing_type` varchar(50) DEFAULT NULL,
   FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -168,7 +168,7 @@ CREATE TABLE `shoes` (
 LOCK TABLES `shoes` WRITE;
 /*!40000 ALTER TABLE `shoes` DISABLE KEYS */;
 INSERT INTO `shoes` (item_id, shoe_size, gender, color, type_of_shoe, clothing_type) values
-(002,10, 'men', 'brown', 'sandal', 'shoes' );
+(002,'10', 'men', 'brown', 'sandal', 'shoes' );
 /*!40000 ALTER TABLE `shoes` ENABLE KEYS */;
 UNLOCK TABLES;
 --
@@ -179,10 +179,10 @@ DROP TABLE IF EXISTS `shirts`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `shirts` (
   `item_id` integer NOT NULL DEFAULT 0,
-  `shirt_size` varchar(50) DEFAULT NULL,
+  `size` varchar(50) DEFAULT NULL,
   `gender` varchar(10) DEFAULT NULL,
   `color` varchar(50) DEFAULT NULL,
-  `type_of_shirt` varchar(50) DEFAULT NULL,
+  `type` varchar(50) DEFAULT NULL,
   `clothing_type` varchar(50) DEFAULT NULL,
   FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -204,10 +204,10 @@ DROP TABLE IF EXISTS `hats`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `hats` (
   `item_id` integer NOT NULL DEFAULT 0,
-  `hat_size` varchar(50) DEFAULT NULL,
+  `size` varchar(50) DEFAULT NULL,
   `gender` varchar(10) DEFAULT NULL,
   `color` varchar(50) DEFAULT NULL,
-  `type_of_hat` varchar(50) DEFAULT NULL,
+  `type` varchar(50) DEFAULT NULL,
   `clothing_type` varchar(50) DEFAULT NULL,
   FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
