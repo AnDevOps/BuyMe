@@ -45,13 +45,13 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
-  -- `user_id` integer NOT NULL DEFAULT 0,
+`user_id` integer NOT NULL DEFAULT 0,
   `username` varchar(50) NOT NULL DEFAULT '',
   `password` varchar(50) DEFAULT NULL,
-  -- `email` varchar(50) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
    `name` varchar(50) DEFAULT NULL,
-  -- `address` varchar(75) DEFAULT NULL,
-  -- `rating` integer DEFAULT NULL,
+   `address` varchar(75) DEFAULT NULL,
+  `rating` integer DEFAULT NULL,
   PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -96,10 +96,8 @@ CREATE TABLE `help` (
   `rep_id` integer NOT NULL DEFAULT 0,
 `username` varchar(50) NOT NULL DEFAULT '',
   PRIMARY KEY(`rep_id`,`username`),
-  KEY `fk_help_user` (`username`),
-  KEY `fk_help_rep` (`rep_id`),
-  CONSTRAINT `fk_help_rep` FOREIGN KEY (`rep_id`) REFERENCES `CustomerServiceRep` (`rep_id`),
-  CONSTRAINT `fk_help_user` FOREIGN KEY (`username`) REFERENCES `users` (`username`)
+  FOREIGN KEY (`rep_id`) REFERENCES `CustomerServiceRep` (`rep_id`),
+  FOREIGN KEY (`username`) REFERENCES `users` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 --
@@ -112,10 +110,8 @@ CREATE TABLE `help` (
   `rep_id` integer NOT NULL DEFAULT 0,
   `username` varchar(50) NOT NULL DEFAULT '',
   PRIMARY KEY(`rep_id`,`username`),
-  KEY `fk_create_adminuser` (`username`),
-  KEY `fk_create_rep` (`rep_id`),
-  CONSTRAINT `fk_create_rep` FOREIGN KEY (`rep_id`) REFERENCES `CustomerServiceRep` (`rep_id`),
-  CONSTRAINT `fk_create_adminuser` FOREIGN KEY (`username`) REFERENCES `admin` (`username`)
+  FOREIGN KEY (`rep_id`) REFERENCES `CustomerServiceRep` (`rep_id`),
+  FOREIGN KEY (`username`) REFERENCES `admin` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 --
@@ -131,13 +127,100 @@ CREATE TABLE `items` (
   `start_date` date DEFAULT NULL,
   `end_date` date DEFAULT NULL,
   `name` varchar(50) DEFAULT NULL,
+  `min_win` integer DEFAULT NULL,
+  `clothing_type` varchar(50) DEFAULT NULL,
   `rating` integer DEFAULT NULL,
   `username` varchar(50) NOT NULL DEFAULT '',
   PRIMARY KEY (`item_id`, `username`),
-  KEY `items_user` (`username`),
-  CONSTRAINT `items_user` FOREIGN KEY (`username`) REFERENCES `users` (`username`)
+FOREIGN KEY (`username`) REFERENCES `users` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+--
+-- Dumping data for table `items`
+--
+LOCK TABLES `items` WRITE;
+/*!40000 ALTER TABLE `items` DISABLE KEYS */;
+INSERT INTO `items` (item_id, initial_price, increment_amt, start_date, end_date, name, username, clothing_type, min_win) values
+(001, 5, 1, '2021-04-012 12:00:00', '2021-04-018 23:59:59', 'shirt with 1 hole', 'user1','shirt', 10),
+(002, 50, 10, '2021-04-012 12:00:00', '2021-04-018 23:59:59', 'roman civ 5s', 'user1','shoes',75),
+(003, 100, 25, '2021-04-012 12:00:00', '2021-04-018 23:59:59', 'hotdog hat', 'user1', 'hat', 125);
+/*!40000 ALTER TABLE `items` ENABLE KEYS */;
+UNLOCK TABLES;
+--
+-- Table structure for table `shoes`
+--
+DROP TABLE IF EXISTS `shoes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `shoes` (
+  `item_id` integer NOT NULL DEFAULT 0,
+  `shoe_size` integer NOT NULL DEFAULT 0,
+  `gender` varchar(10) DEFAULT NULL,
+  `color` varchar(50) DEFAULT NULL,
+  `type_of_shoe` varchar(50) DEFAULT NULL,
+  `clothing_type` varchar(50) DEFAULT NULL,
+  FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+--
+-- Dumping data for table `shoes`
+--
+LOCK TABLES `shoes` WRITE;
+/*!40000 ALTER TABLE `shoes` DISABLE KEYS */;
+INSERT INTO `shoes` (item_id, shoe_size, gender, color, type_of_shoe, clothing_type) values
+(002,10, 'men', 'brown', 'sandal', 'shoes' );
+/*!40000 ALTER TABLE `shoes` ENABLE KEYS */;
+UNLOCK TABLES;
+--
+-- Table structure for table `shirts`
+--
+DROP TABLE IF EXISTS `shirts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `shirts` (
+  `item_id` integer NOT NULL DEFAULT 0,
+  `shirt_size` varchar(50) DEFAULT NULL,
+  `gender` varchar(10) DEFAULT NULL,
+  `color` varchar(50) DEFAULT NULL,
+  `type_of_shirt` varchar(50) DEFAULT NULL,
+  `clothing_type` varchar(50) DEFAULT NULL,
+  FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+--
+-- Dumping data for table `shirts`
+--
+LOCK TABLES `shirts` WRITE;
+/*!40000 ALTER TABLE `shirts` DISABLE KEYS */;
+INSERT INTO `shirts` (item_id, shirt_size, gender, color, type_of_shirt, clothing_type) values
+(001,'Large', 'men', 'white', 'TShirt', 'shirts' );
+/*!40000 ALTER TABLE `shirts` ENABLE KEYS */;
+UNLOCK TABLES;
+--
+-- Table structure for table `shirts`
+--
+DROP TABLE IF EXISTS `hats`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `hats` (
+  `item_id` integer NOT NULL DEFAULT 0,
+  `hat_size` varchar(50) DEFAULT NULL,
+  `gender` varchar(10) DEFAULT NULL,
+  `color` varchar(50) DEFAULT NULL,
+  `type_of_hat` varchar(50) DEFAULT NULL,
+  `clothing_type` varchar(50) DEFAULT NULL,
+  FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+--
+-- Dumping data for table `shirts`
+--
+LOCK TABLES `hats` WRITE;
+/*!40000 ALTER TABLE `hats` DISABLE KEYS */;
+INSERT INTO `hats` (item_id, hat_size, gender, color, type_of_hat, clothing_type) values
+(003,'Large', 'men', 'red', 'Cap', 'hats' );
+/*!40000 ALTER TABLE `hats` ENABLE KEYS */;
+UNLOCK TABLES;
 --
 -- Table structure for table `generate_reports`
 --
@@ -149,12 +232,9 @@ CREATE TABLE `generate_reports` (
   `username` varchar(50) NOT NULL DEFAULT '',
   `usernameadmin` varchar(50) NOT NULL DEFAULT '',
   PRIMARY KEY(`item_id`,`usernameadmin`,`username`),
-  KEY `fk_gr_item_id` (`item_id`),
-  KEY `fk_gr_adminuser` (`usernameadmin`),
-  KEY `fk_gr_user` (`username`),
-  CONSTRAINT `fk_gr_item_id` FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`),
-  CONSTRAINT `fk_gr_adminuser` FOREIGN KEY (`usernameadmin`) REFERENCES `admin` (`username`),
-  CONSTRAINT `fk_gr_user` FOREIGN KEY (`username`) REFERENCES `users` (`username`)
+ FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`),
+ FOREIGN KEY (`usernameadmin`) REFERENCES `admin` (`username`),
+  FOREIGN KEY (`username`) REFERENCES `users` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 --
@@ -171,34 +251,28 @@ CREATE TABLE `bid_on` (
   `datetime` datetime DEFAULT NULL,
   `bid_num` integer DEFAULT NULL,
   PRIMARY KEY(`item_id`,`username`),
-  KEY `fk_bid_item_id` (`item_id`),
-  KEY `fk_bid_user` (`username`),
-  CONSTRAINT `fk_bid_item_id` FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`),
-  CONSTRAINT `fk_bid_user` FOREIGN KEY (`username`) REFERENCES `users` (`username`)
+   FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`),
+   FOREIGN KEY (`username`) REFERENCES `users` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 --
--- Table structure for table `list`
+-- Table structure for table `watchlists`
 --
-DROP TABLE IF EXISTS `list`;
+DROP TABLE IF EXISTS `watchlists`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `list` (
+CREATE TABLE `bid_on` (
   `item_id` integer NOT NULL DEFAULT 0,
   `username` varchar(50) NOT NULL DEFAULT '',
-  `listing_number` integer DEFAULT NULL,
-  `min_win` integer DEFAULT NULL,
-  `datetime` datetime DEFAULT NULL,
   PRIMARY KEY(`item_id`,`username`),
-  KEY `fk_list_item_id` (`item_id`),
-  KEY `fk_list_user` (`username`),
-  CONSTRAINT `fk_list_item_id` FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`),
-  CONSTRAINT `fk_list_user` FOREIGN KEY (`username`) REFERENCES `users` (`username`)
+   FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`),
+   FOREIGN KEY (`username`) REFERENCES `users` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
 --
-
-
+--
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
