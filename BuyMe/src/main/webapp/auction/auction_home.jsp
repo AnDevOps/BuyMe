@@ -30,12 +30,11 @@ BuyMe Login Page
 
 <!-- Customer Login -->
 <th> 
-<div class="card" style="width: 15rem;" >
+<div class="card" style="width: 18rem;" >
   <div class="card-body">
     <h5 class="card-title">Buyer Options</h5>
     <form method="post" action="login/login_customer_form.jsp">
     <input type ="submit" value="Access Watched Items List" >
-    <input type ="submit" value="Access Personal Sales" formaction = "login/register_customer_form.jsp">
     </form>
   </div>
 </div>
@@ -43,11 +42,11 @@ BuyMe Login Page
 
 <!-- Customer Representative Login-->
 <th> 
-<div class="card" style="width: 15rem;" >
+<div class="card" style="width: 18rem;" >
   <div class="card-body">
     <h5 class="card-title">Seller Options </h5>
     <form method="post" action="login/login_representative_form.jsp">
-    <input type ="submit" value="Login" >
+    <input type ="submit" value="Access Seller Pages" >
     </form>
   </div>
 </div>
@@ -57,12 +56,13 @@ BuyMe Login Page
 </thead>
 </table>
 
-<hr noshade size="15">
+<hr noshade size="16">
 <b><br>Auction House</br></b>
 <table border="2">
 	<tr>
 	<td>Item ID</td>
 	<td>Initial Price</td>
+	<td>Current Offer</td>
 	<td>Increment Amount</td>
 	<td>Start Date</td>
 	<td>End Date</td>
@@ -85,6 +85,7 @@ BuyMe Login Page
 				<tr>
 				<td><%=items_info.getInt("item_id") %></td>
 				<td><%=items_info.getInt("initial_price") %></td>
+				<td><%=items_info.getInt("current_offer") %></td>
 				<td><%=items_info.getInt("increment_amt") %></td>
 				<td><%=items_info.getDate("start_date") %></td>
 				<td><%=items_info.getDate("end_date") %></td>
@@ -98,7 +99,7 @@ BuyMe Login Page
 
 		} catch (Exception e) {
 			//out.print(e);
-			out.println("Login Failed. Invalid login credentials");%>
+			out.println("an error has occurred.");%>
 			<button type="button" name="back" onclick="history.back()">Try Again.</button>
 		<%
 		}
@@ -106,6 +107,20 @@ BuyMe Login Page
 	%>
 
 </table>
+</div>
+
+<div align='center'> 
+
+		<form method="post" action="../auction/request_item_page.jsp">
+		<table>
+		<tr>    
+		<td>Item ID</td><td><input type="text" name="item_id"> <input type="submit" value="Access Item Page"> </td> 
+		</tr>
+		<tr><td>
+		</table>
+		</form>
+
+
 </div>
 
 
