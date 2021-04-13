@@ -60,7 +60,7 @@ CREATE TABLE `users` (
 --
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('user1','password','Patricia Jones'), ('deeznuts','password', 'Deez Nuts');
+INSERT INTO `users` (username, password, name) VALUES ('user1','password','Patricia Jones'), ('deeznuts','password', 'Deez Nuts');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 --
@@ -261,7 +261,7 @@ CREATE TABLE `bid_on` (
 DROP TABLE IF EXISTS `watchlists`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `bid_on` (
+CREATE TABLE `watchlists` (
   `item_id` integer NOT NULL DEFAULT 0,
   `username` varchar(50) NOT NULL DEFAULT '',
   PRIMARY KEY(`item_id`,`username`),
