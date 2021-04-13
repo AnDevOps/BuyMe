@@ -167,7 +167,7 @@ CREATE TABLE `shoes` (
 --
 LOCK TABLES `shoes` WRITE;
 /*!40000 ALTER TABLE `shoes` DISABLE KEYS */;
-INSERT INTO `shoes` (item_id, shoe_size, gender, color, type_of_shoe, clothing_type) values
+INSERT INTO `shoes` (item_id, size, gender, color, type, clothing_type) values
 (002,'10', 'men', 'brown', 'sandal', 'shoes' );
 /*!40000 ALTER TABLE `shoes` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -192,7 +192,7 @@ CREATE TABLE `shirts` (
 --
 LOCK TABLES `shirts` WRITE;
 /*!40000 ALTER TABLE `shirts` DISABLE KEYS */;
-INSERT INTO `shirts` (item_id, shirt_size, gender, color, type_of_shirt, clothing_type) values
+INSERT INTO `shirts` (item_id, size, gender, color, type, clothing_type) values
 (001,'Large', 'men', 'white', 'TShirt', 'shirts' );
 /*!40000 ALTER TABLE `shirts` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -217,7 +217,7 @@ CREATE TABLE `hats` (
 --
 LOCK TABLES `hats` WRITE;
 /*!40000 ALTER TABLE `hats` DISABLE KEYS */;
-INSERT INTO `hats` (item_id, hat_size, gender, color, type_of_hat, clothing_type) values
+INSERT INTO `hats` (item_id, size, gender, color, type, clothing_type) values
 (003,'Large', 'men', 'red', 'Cap', 'hats' );
 /*!40000 ALTER TABLE `hats` ENABLE KEYS */;
 UNLOCK TABLES;
