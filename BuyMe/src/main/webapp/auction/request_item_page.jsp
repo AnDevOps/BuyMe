@@ -84,7 +84,6 @@
 					<td>Type</td>
 					<td>Clothing Type</td>
 					</tr>
-					</table>
 					</div>
 					
 					<tr>
@@ -94,6 +93,7 @@
 					<td><%=specific_item.getString("type") %></td>
 					<td><%=specific_item.getString("clothing_type") %></td>
 					</tr>
+					</table>
 					
 					
 					
