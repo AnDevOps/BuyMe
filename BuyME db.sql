@@ -123,6 +123,7 @@ DROP TABLE IF EXISTS `items`;
 CREATE TABLE `items` (
   `item_id` integer NOT NULL DEFAULT 0,
   `initial_price` integer NOT NULL DEFAULT 0,
+  `current_offer` integer NOT NULL DEFAULT 0,
   `increment_amt` integer NOT NULL DEFAULT 0,
   `start_date` date DEFAULT NULL,
   `end_date` date DEFAULT NULL,
@@ -140,10 +141,10 @@ FOREIGN KEY (`username`) REFERENCES `users` (`username`)
 --
 LOCK TABLES `items` WRITE;
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
-INSERT INTO `items` (item_id, initial_price, increment_amt, start_date, end_date, name, username, clothing_type, min_win) values
-(001, 5, 1, '2021-04-012 12:00:00', '2021-04-018 23:59:59', 'shirt with 1 hole', 'user1','shirt', 10),
-(002, 50, 10, '2021-04-012 12:00:00', '2021-04-018 23:59:59', 'roman civ 5s', 'user1','shoes',75),
-(003, 100, 25, '2021-04-012 12:00:00', '2021-04-018 23:59:59', 'hotdog hat', 'user1', 'hat', 125);
+INSERT INTO `items` (item_id, initial_price, current_offer, increment_amt, start_date, end_date, name, username, clothing_type, min_win) values
+(001, 5,7, 1, '2021-04-012 12:00:00', '2021-04-018 23:59:59', 'shirt with 1 hole', 'user1','shirt', 10),
+(002, 50,53, 10, '2021-04-012 12:00:00', '2021-04-018 23:59:59', 'roman civ 5s', 'user1','shoes',75),
+(003, 100,111, 25, '2021-04-012 12:00:00', '2021-04-018 23:59:59', 'hotdog hat', 'user1', 'hat', 125);
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 UNLOCK TABLES;
 --
