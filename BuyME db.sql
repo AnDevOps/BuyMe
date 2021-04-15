@@ -16,11 +16,9 @@ USE `BuyMe`;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
 --
 -- Table structure for table `admin`
 --
-
 DROP TABLE IF EXISTS `admin`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -60,7 +58,7 @@ CREATE TABLE `users` (
 --
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` (username, password, name) VALUES ('user1','password','Patricia Jones'), ('deeznuts','password', 'Deez Nuts');
+INSERT INTO `users` (username, password, name) VALUES ('user1','password','Patricia Jones'), ('user2','password', 'Deez Nuts');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 --
@@ -124,7 +122,6 @@ CREATE TABLE `items` (
   `item_id` integer NOT NULL DEFAULT 0,
   `initial_price` integer NOT NULL DEFAULT 0,
   `current_offer` integer NOT NULL DEFAULT 0,
-  `increment_amt` integer NOT NULL DEFAULT 0,
   `start_date` date DEFAULT NULL,
   `end_date` date DEFAULT NULL,
   `name` varchar(50) DEFAULT NULL,
@@ -141,10 +138,10 @@ FOREIGN KEY (`username`) REFERENCES `users` (`username`)
 --
 LOCK TABLES `items` WRITE;
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
-INSERT INTO `items` (item_id, initial_price, current_offer, increment_amt, start_date, end_date, name, username, clothing_type, min_win) values
-(001, 5,7, 1, '2021-04-012 12:00:00', '2021-04-018 23:59:59', 'shirt with 1 hole', 'user1','shirt', 10),
-(002, 50,53, 10, '2021-04-012 12:00:00', '2021-04-018 23:59:59', 'roman civ 5s', 'user1','shoes',75),
-(003, 100,111, 25, '2021-04-012 12:00:00', '2021-04-018 23:59:59', 'hotdog hat', 'user1', 'hat', 125);
+INSERT INTO `items` (item_id, initial_price, current_offer, start_date, end_date, name, username, clothing_type, min_win) values
+(001, 5, 7, '2021-04-012 12:00:00', '2021-04-018 23:59:59', 'shirt with 1 hole', 'user1','shirt', 10),
+(002, 50, 53, '2021-04-012 12:00:00', '2021-04-018 23:59:59', 'roman civ 5s', 'user1','shoes',75),
+(003, 100, 111, '2021-04-012 12:00:00', '2021-04-018 23:59:59', 'hotdog hat', 'user1', 'hat', 125);
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 UNLOCK TABLES;
 --
@@ -214,7 +211,7 @@ CREATE TABLE `hats` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 --
--- Dumping data for table `shirts`
+-- Dumping data for table `hats`
 --
 LOCK TABLES `hats` WRITE;
 /*!40000 ALTER TABLE `hats` DISABLE KEYS */;
@@ -248,14 +245,24 @@ CREATE TABLE `bid_on` (
   `item_id` integer NOT NULL DEFAULT 0,
   `username` varchar(50) NOT NULL DEFAULT '',
   `bid_value` integer DEFAULT NULL,
-  `max_bid` integer DEFAULT NULL,
-  `datetime` datetime DEFAULT NULL,
-  `bid_num` integer DEFAULT NULL,
-  PRIMARY KEY(`item_id`,`username`),
+  `max_bid` integer NOT NULL DEFAULT 0,
+  `date_time` date DEFAULT NULL,
+  PRIMARY KEY(`item_id`,`username`,`max_bid`),
    FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`),
    FOREIGN KEY (`username`) REFERENCES `users` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+--
+-- Dumping data for table `bid_on`
+--
+LOCK TABLES `bid_on` WRITE;
+/*!40000 ALTER TABLE `bid_on` DISABLE KEYS */;
+INSERT INTO `bid_on` (item_id, username, bid_value, max_bid, date_time) values
+(003,'user2', 101, 101, '2021-04-010 12:00:00'),
+(003,'user2', 105, 105, '2021-04-011 12:00:00'),
+(003,'user2', 111, 111, '2021-04-012 12:00:00');
+/*!40000 ALTER TABLE `bid_on` ENABLE KEYS */;
+UNLOCK TABLES;
 --
 -- Table structure for table `watchlists`
 --
@@ -270,7 +277,16 @@ CREATE TABLE `watchlists` (
    FOREIGN KEY (`username`) REFERENCES `users` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
+--
+--
+--
+LOCK TABLES `watchlists` WRITE;
+/*!40000 ALTER TABLE `watchlists` DISABLE KEYS */;
+INSERT INTO `watchlists` (item_id, username) values
+(001,'user2'),
+(003,'user2');
+/*!40000 ALTER TABLE `watchlists` ENABLE KEYS */;
+UNLOCK TABLES;
 --
 --
 --
