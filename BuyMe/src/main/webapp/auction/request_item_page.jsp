@@ -23,7 +23,6 @@
 			String query = "";
 			ResultSet item_request = stmt.executeQuery("select * from items where item_id='"+item_id+"'");
 			ResultSet specific_item;
-
 			if(item_request.next()) {
 			%>
 				<div align="center">
@@ -31,23 +30,24 @@
 				<table border="2">
 				<tr>
 				<td>Item ID</td>
+				<td>Name</td>
+				<td>Type</td>
 				<td>Initial Price</td>
 				<td>Current Offer</td>
-				<td>Increment Amount</td>
 				<td>Start Date</td>
 				<td>End Date</td>
-				<td>Name</td>
 				<td>Rating</td>
 				<td>Seller</td>
+
 			
 				<tr>
 				<td><%=item_request.getInt("item_id") %></td>
+				<td><%=item_request.getString("name") %></td>
+				<td><%=item_request.getString("clothing_type") %></td>
 				<td><%=item_request.getInt("initial_price") %></td>
 				<td><%=item_request.getInt("current_offer") %></td>
-				<td><%=item_request.getInt("increment_amt") %></td>
 				<td><%=item_request.getDate("start_date") %></td>
 				<td><%=item_request.getDate("end_date") %></td>
-				<td><%=item_request.getString("name") %></td>
 				<td><%=item_request.getInt("rating") %></td>
 				<td><%=item_request.getString("username") %></td>
 				</tr>
@@ -60,13 +60,10 @@
 			
 				if(item_request.getString("clothing_type").equals("shoes")) {
 					query = "select * from shoes where item_id='"+item_request.getInt("item_id")+"' and clothing_type='"+"shoes"+"'";
-
 				} else if(item_request.getString("clothing_type").equals("shirt")) {
 					query = "select * from shirts where item_id='"+item_request.getInt("item_id")+"' and clothing_type='"+"shirts"+"'";
-
 				} else if(item_request.getString("clothing_type").equals("hat")) {
 					query = "select * from hats where item_id='"+item_request.getInt("item_id")+"' and clothing_type='"+"hats"+"'";
-
 				}
 			
 				specific_item = stmt.executeQuery(query);
@@ -103,13 +100,11 @@
 					<button type="button" name="back" onclick="history.back()">Try Again.</button>
 				<%
 				}
-
 			} else {
 				out.println("The requested page for the item id does not exist.");%>
 				<button type="button" name="back" onclick="history.back()">Try Again.</button>
 			<%
 			}
-
 		} catch (Exception e) {
 			//out.print(e);
 			out.println("error has occured.");%>
