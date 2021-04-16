@@ -12,43 +12,49 @@
 <body>
 	<%
 		try {
-			//Get the database connection
 			ApplicationDB db = new ApplicationDB();	
 			Connection con = db.getConnection();	
-			
-			//Create a SQL statement
 			Statement stmt = con.createStatement();
-			//Get parameters from the HTML form at the index.jsp
 			String username = request.getParameter("username");
 			String password = request.getParameter("password");
+			String email = request.getParameter("email");
 			
-			ResultSet login_info = stmt.executeQuery("select * from customerservicerep where username='"+username+"' and password='"+password+"'");
+			ResultSet login_info = stmt.executeQuery("select * from users where username='"+username+"'");
 			
 			if(login_info.next()) {
-				if(username.length() != 0 && username != null && password.length() != 0 && password != null) {
-					session.setAttribute("user", username);
-					response.sendRedirect("../rep/representative_home.jsp");
-				} else {
-					out.println("Invalid credentials.");%>
-					<button type="button" name="back" onclick="history.back()">Try Again.</button>
-				<%
+				if (username != null || username.length() != 0) {
+					if(password != null || password.length() != 0) {
+						String update = "update users set password=? where username=?";
+						PreparedStatement ps = con.prepareStatement(update);
+						ps.setString(1, password); ps.setString(2, username);;
+						ps.executeUpdate();
+						
+						out.println("User account password has been successfully updated.");
+					}
+					if(email != null || email.length() != 0) {
+						String update = "update users set email=? where username=?";
+						PreparedStatement ps = con.prepareStatement(update);
+						ps.setString(1, email); ps.setString(2, username);;
+						ps.executeUpdate();
+						
+						out.println("User account email has been successfully updated.");
+					}
 				}
+				%>
+					<form method="post" action="representative_home.jsp">
+    			<input type ="submit" value="Back" >
+    			</form>
+    		<%
 			} else {
-				out.println("Invalid credentials.");%>
+				out.println("Invaid username");%>
 				<button type="button" name="back" onclick="history.back()">Try Again.</button>
 			<%
 			}
-
 		} catch (Exception e) {
-			//out.print(e);
 			out.println("Login Failed. Invalid login credentials");%>
 			<button type="button" name="back" onclick="history.back()">Try Again.</button>
 		<%
 		}
-		
 	%>
-	
-	
-
 </body>
 </html>

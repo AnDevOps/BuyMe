@@ -18,17 +18,11 @@
 	<br>
 		<form method="post" action="verify_representative_login.jsp">
 		<table>
-		<tr>
-		<td>Representative ID</td><td><input type="text" name="rep_id"></td>
-		</tr>
 		<tr>    
 		<td>Username</td><td><input type="text" name="username"></td>
 		</tr>
 		<tr>
 		<td>Password</td><td><input type="text" name="password"></td>
-		</tr>
-		<tr>
-		<td>Email</td><td><input type="text" name="email"></td>
 		</tr>
 		<tr><td>
 		<br>
