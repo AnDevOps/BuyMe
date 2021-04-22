@@ -33,20 +33,21 @@ BuyMe Login Page
 <div class="card" style="width: 18rem;" >
   <div class="card-body">
     <h5 class="card-title">Buyer Options</h5>
-    <form method="post" action="login/login_customer_form.jsp">
+    <form method="post" action="buyer_home.jsp">
     <input type ="submit" value="Access Watched Items List" >
+   
     </form>
   </div>
 </div>
 </th>
 
-<!-- Customer Representative Login-->
+<!-- Seller Page -->
 <th> 
 <div class="card" style="width: 18rem;" >
   <div class="card-body">
     <h5 class="card-title">Seller Options </h5>
-    <form method="post" action="login/login_representative_form.jsp">
-    <input type ="submit" value="Access Seller Pages" >
+    <form method="post" action="../seller/seller_home.jsp">
+    <input type ="submit" value="Access Seller Page" >
     </form>
   </div>
 </div>
@@ -61,12 +62,12 @@ BuyMe Login Page
 <table border="2">
 	<tr>
 	<td>Item ID</td>
+	<td>Name</td>
+	<td>Type</td>
 	<td>Initial Price</td>
-	<td>Current Offer</td>
-	<td>Increment Amount</td>
+	<td>Increment</td>
 	<td>Start Date</td>
 	<td>End Date</td>
-	<td>Name</td>
 	<td>Rating</td>
 	<td>Seller</td>
 
@@ -79,24 +80,27 @@ BuyMe Login Page
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
 			ResultSet items_info = stmt.executeQuery("select * from items");
-
 			while(items_info.next()) {
 				%>
 				<tr>
 				<td><%=items_info.getInt("item_id") %></td>
-				<td><%=items_info.getInt("initial_price") %></td>
-				<td><%=items_info.getInt("current_offer") %></td>
-				<td><%=items_info.getInt("increment_amt") %></td>
-				<td><%=items_info.getDate("start_date") %></td>
-				<td><%=items_info.getDate("end_date") %></td>
 				<td><%=items_info.getString("name") %></td>
+				<td><%=items_info.getString("clothing_type") %></td>
+				<td><%=items_info.getInt("initial_price") %></td>
+				<td><%=items_info.getInt("increment") %></td>
+				<td><%=items_info.getTimestamp("start_date") %></td>
+				<td><%=items_info.getTimestamp("end_date") %></td>
 				<td><%=items_info.getInt("rating") %></td>
 				<td><%=items_info.getString("username") %></td>
 				</tr>
 <%
-
 			}
-
+			
+			items_info.close();
+			ResultSet get_current_time = stmt.executeQuery("SELECT CURRENT_TIMESTAMP");
+			get_current_time.next();
+			out.println(get_current_time.getTimestamp("CURRENT_TIMESTAMP"));
+			
 		} catch (Exception e) {
 			//out.print(e);
 			out.println("an error has occurred.");%>
