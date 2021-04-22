@@ -179,7 +179,7 @@
 					<tr><td>Increase bid by</td><td><input type="number" value = 0 name="increase_bid_modifier"> * $<% out.println(" "+ incrementamt ); %></td></tr>
 					<tr><td>Set max bid(Optional)</td><td><input type="number" value = 0 name="max_bid_modifier"> * $<% out.println(" "+ incrementamt); %></td></tr>
 					</table>
-					<input type="submit" value="input bid">
+					<input type="submit" value="Input Bid">
 					</form>
 					
 					</div>
