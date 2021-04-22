@@ -27,7 +27,7 @@
 		<tr><td>
 		<br>
 		</table>
-		<input type="submit" value="Login"><input type="submit" value="Go Back" formaction = "../frontpage.jsp">
+		<input type="submit" value="Login"><input type="submit" value="Go Back" formaction = "../admin_home.jsp">
 		</form>
 	<br>
 	
