@@ -121,9 +121,9 @@ DROP TABLE IF EXISTS `items`;
 CREATE TABLE `items` (
   `item_id` integer NOT NULL DEFAULT 0,
   `initial_price` integer NOT NULL DEFAULT 0,
-  `current_offer` integer NOT NULL DEFAULT 0,
-  `start_date` date DEFAULT NULL,
-  `end_date` date DEFAULT NULL,
+  `increment` integer NOT NULL DEFAULT 0,
+  `start_date` timestamp DEFAULT NULL,
+  `end_date` timestamp DEFAULT NULL,
   `name` varchar(50) DEFAULT NULL,
   `min_win` integer DEFAULT NULL,
   `clothing_type` varchar(50) DEFAULT NULL,
@@ -138,10 +138,10 @@ FOREIGN KEY (`username`) REFERENCES `users` (`username`)
 --
 LOCK TABLES `items` WRITE;
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
-INSERT INTO `items` (item_id, initial_price, current_offer, start_date, end_date, name, username, clothing_type, min_win) values
-(001, 5, 7, '2021-04-012 12:00:00', '2021-04-018 23:59:59', 'shirt with 1 hole', 'user1','shirt', 10),
-(002, 50, 53, '2021-04-012 12:00:00', '2021-04-018 23:59:59', 'roman civ 5s', 'user1','shoes',75),
-(003, 100, 111, '2021-04-012 12:00:00', '2021-04-018 23:59:59', 'hotdog hat', 'user1', 'hat', 125);
+INSERT INTO `items` (item_id, initial_price, increment, start_date, end_date, name, username, clothing_type, min_win) values
+(001, 5, 1, '2021-04-012 12:00:00', '2021-04-018 23:59:59', 'shirt with 1 hole', 'user1','shirts', 10),
+(002, 50, 2, '2021-04-012 12:00:00', '2021-04-018 23:59:59', 'roman civ 5s', 'user1','shoes',75),
+(003, 100, 5, '2021-04-012 12:00:00', '2021-04-018 23:59:59', 'hotdog hat', 'user1', 'hats', 125);
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 UNLOCK TABLES;
 --
@@ -238,30 +238,30 @@ CREATE TABLE `generate_reports` (
 --
 -- Table structure for table `bid_on`
 --
-DROP TABLE IF EXISTS `bid_on`;
+DROP TABLE IF EXISTS `bids`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `bid_on` (
+CREATE TABLE `bids` (
   `item_id` integer NOT NULL DEFAULT 0,
   `username` varchar(50) NOT NULL DEFAULT '',
-  `bid_value` integer DEFAULT NULL,
+  `bid_value` integer NOT NULL DEFAULT 0,
   `max_bid` integer NOT NULL DEFAULT 0,
-  `date_time` date DEFAULT NULL,
-  PRIMARY KEY(`item_id`,`username`,`max_bid`),
+  `date_time` timestamp DEFAULT NULL,
+  PRIMARY KEY(`item_id`,`username`,`bid_value`,`max_bid`),
    FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`),
    FOREIGN KEY (`username`) REFERENCES `users` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 --
--- Dumping data for table `bid_on`
+-- Dumping data for table `bids`
 --
-LOCK TABLES `bid_on` WRITE;
-/*!40000 ALTER TABLE `bid_on` DISABLE KEYS */;
-INSERT INTO `bid_on` (item_id, username, bid_value, max_bid, date_time) values
-(003,'user2', 101, 101, '2021-04-010 12:00:00'),
-(003,'user2', 105, 105, '2021-04-011 12:00:00'),
-(003,'user2', 111, 111, '2021-04-012 12:00:00');
-/*!40000 ALTER TABLE `bid_on` ENABLE KEYS */;
+LOCK TABLES `bids` WRITE;
+/*!40000 ALTER TABLE `bids` DISABLE KEYS */;
+INSERT INTO `bids` (item_id, username, bid_value, max_bid, date_time) values
+(003,'user2', 105, 105, '2021-04-010 12:00:00'),
+(003,'user2', 110, 110, '2021-04-011 12:00:00'),
+(003,'user2', 115, 125, '2021-04-012 12:00:00');
+/*!40000 ALTER TABLE `bids` ENABLE KEYS */;
 UNLOCK TABLES;
 --
 -- Table structure for table `watchlists`
