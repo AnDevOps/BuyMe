@@ -48,6 +48,7 @@
 			ResultSet current_bid = stmt.executeQuery("select max(bid_value) from bids where item_id='"+item_id+"'");
 			boolean bid_exists = false;
 			int current_bid_num = -1;
+			int current_user_max = -1;
 			if(current_bid.next() && current_bid.getInt("max(bid_value)") != 0) {
 				%>
 				<div align="center">
@@ -93,7 +94,8 @@
 				</div>
 				<% 
 				has_bid = true;
-				 current_user_bid = user_bid.getInt("bid_value");
+				current_user_bid = user_bid.getInt("bid_value");
+				current_user_max = user_bid.getInt("max_bid");
 			} else {
 				%>
 				<div align="center">
@@ -108,6 +110,8 @@
 				has_bid = false;
 			}
 			
+			
+			
 			if(bid_exists) {
 				if(has_bid) {
 					// condition #1 - the user is the highest bid
@@ -116,8 +120,10 @@
 						%> 
 						<div align="center">
 						<b><br>You currently have the highest bid on this item.</b>
+						<b><br>Your maximum auto-bid is: $<%=current_user_max  %> </b>
 						</div>
 						<% 
+						
 					} else {
 						%> 
 						<div align="center">
