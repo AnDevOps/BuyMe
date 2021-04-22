@@ -179,7 +179,7 @@
 					<tr><td>Increase bid by</td><td><input type="number" value = 0 name="increase_bid_modifier"> * $<% out.println(" "+ incrementamt ); %></td></tr>
 					<tr><td>Set max bid(Optional)</td><td><input type="number" value = 0 name="max_bid_modifier"> * $<% out.println(" "+ incrementamt); %></td></tr>
 					</table>
-					<input type="submit" value="Input Bid">
+					<input type="submit" value="input bid">
 					</form>
 					
 					</div>
@@ -188,7 +188,9 @@
 					<b><br>Bid Status </br></b>
 					<div align="center">
 					<form method="post" action="../auction/bid_status_check.jsp">
-					<input type="submit" value="Check Bid Status">
+  					<input type="radio" id="item" name="item_id" value="<%=itemid%>" required>
+  					<label for="item">Item ID: <%=itemid%></label><br>
+  					<input type="submit" value="Check Bid Status"><input type="reset">
 					</form>
 					</div>
 					
