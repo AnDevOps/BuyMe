@@ -77,7 +77,8 @@
 			current_bid.close();			
 			
 			// query for user bid
-			ResultSet user_bid = stmt.executeQuery("select bid_value from bids where bid_value = (select max(bid_value) from bids where username='"+username+"') and item_id='"+item_id+"'");
+			
+			ResultSet user_bid = stmt.executeQuery("select * from bids where bid_value in (	select max(bid_value) 	from bids group by item_id)and item_id = '"+item_id+"' and username='"+username+"'");
 			int current_user_bid = -1;
 			boolean has_bid = false;
 			if(user_bid.next() && user_bid.getInt("bid_value") != 0) {
