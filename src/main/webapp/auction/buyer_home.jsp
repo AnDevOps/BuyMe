@@ -32,7 +32,7 @@ BuyMe Watchlist
 	<td>Name</td>
 	<td>Type</td>
 	<td>Initial Price</td>
-	<td>Current Offer</td>
+	<td>Increment</td>
 	<td>Start Date</td>
 	<td>End Date</td>
 	<td>Seller</td>
@@ -56,7 +56,7 @@ BuyMe Watchlist
 				<td><%=items_info.getString("name") %></td>
 				<td><%=items_info.getString("clothing_type") %></td>
 				<td><%=items_info.getInt("initial_price") %></td>
-				<td><%=items_info.getInt("current_offer") %></td>
+				<td><%=items_info.getInt("increment") %></td>
 				<td><%=items_info.getDate("start_date") %></td>
 				<td><%=items_info.getDate("end_date") %></td>
 				<td><%=items_info.getString("username") %></td>
