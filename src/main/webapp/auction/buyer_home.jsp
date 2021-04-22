@@ -14,7 +14,7 @@
 
 <div align='center'> 
 
-BuyMe Watchlist
+BuyMe Buyer Functions
 
 
 <!-- logout form  -->			  
@@ -24,69 +24,70 @@ BuyMe Watchlist
 		</form>
 	<br>
 
-<hr noshade size="16">
-<b><br>Your Watchlisted Items</br></b>
-<table border="2">
-	<tr>
-	<td>Item ID</td>
-	<td>Name</td>
-	<td>Type</td>
-	<td>Initial Price</td>
-	<td>Increment</td>
-	<td>Start Date</td>
-	<td>End Date</td>
-	<td>Seller</td>
+<table> 
+<thead>
+<tr> 
 
-<%
-		try {
-			//Get the database connection
-			ApplicationDB db = new ApplicationDB();	
-			Connection con = db.getConnection();	
-			String user = (String)session.getAttribute("user"); 
-			
-			//Create a SQL statement
-			Statement stmt = con.createStatement();
-			ResultSet items_info = stmt.executeQuery("select * from items where item_id in (select item_id from watchlists where username = '"+user+"')");
+<th> 
+<div class="card" style="width: 18rem;" >
+  <div class="card-body">
+    <h5 class="card-title">Items That User Is Interested In</h5>
+    <form method="post" action="buyer_home.jsp">
+    <input type ="submit" value="Watched List Items" >
+   
+    </form>
+  </div>
+</div>
+</th>
 
-			
-			while(items_info.next()) {
-				%>
-				<tr>
-				<td><%=items_info.getInt("item_id") %></td>
-				<td><%=items_info.getString("name") %></td>
-				<td><%=items_info.getString("clothing_type") %></td>
-				<td><%=items_info.getInt("initial_price") %></td>
-				<td><%=items_info.getInt("increment") %></td>
-				<td><%=items_info.getDate("start_date") %></td>
-				<td><%=items_info.getDate("end_date") %></td>
-				<td><%=items_info.getString("username") %></td>
-				</tr>
-<%
-			}
-		} catch (Exception e) {
-			//out.print(e);
-			out.println("an error has occurred.");%>
-			<button type="button" name="back" onclick="history.back()">Try Again.</button>
-		<%
-		}
-		
-	%>
+<th> 
+<div class="card" style="width: 18rem;" >
+  <div class="card-body">
+    <h5 class="card-title">Items User Placed Bid On </h5>
+    <form method="post" action="../seller/seller_home.jsp">
+    <input type ="submit" value="Access Item Bids" >
+    </form>
+  </div>
+</div>
+</th>
 
+</tr>
+</thead>
 </table>
 
-<div align='center'> 
-
-		<form method="post" action="../auction/request_item_page.jsp">
-		<table>
-		<tr>    
-		<td>Item ID</td><td><input type="text" name="item_id"> <input type="submit" value="Access Item Page"> </td> 
-		</tr>
-		<tr><td>
-		</table>
-		</form>
 
 
+</tr>
+</thead>
+</table>
+
+<hr noshade size="16">
+
+<table>
+<th> 
+<div class="card" style="width: 18rem;" >
+  <div class="card-body">
+    <h5 class="card-title">Alert: Check Which Auction User Won</h5>
+    <form method="post" action="../buyer/higher_bid_alert.jsp">
+    <input type ="submit" value="Access Winning Auctions" >
+    </form>
+  </div>
 </div>
+</th>
+
+<th> 
+<div class="card" style="width: 18rem;" >
+  <div class="card-body">
+    <h5 class="card-title">Alert: Higher Bid Placed </h5>
+    <form method="post" action="../buyer/higher_bid_alert.jsp">
+    <input type ="submit" value="Access Out-bidded Items" >
+    </form>
+  </div>
+</div>
+</th>
+</table>
+
+
 
 
 </html>
