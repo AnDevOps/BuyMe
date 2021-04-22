@@ -34,7 +34,7 @@ BuyMe Login Page
   <div class="card-body">
     <h5 class="card-title">Buyer Options</h5>
     <form method="post" action="buyer_home.jsp">
-    <input type ="submit" value="Access Watched Items List" >
+    <input type ="submit" value="Access Buyer Page" >
    
     </form>
   </div>
