@@ -32,11 +32,11 @@
 			int bid_value = 0;
 			int max_bid = 0;
 			int bid_on = 0;
-			
 			String set_user = "";
 			int set_bid = 0;
 			int set_max = 0;
 			
+			//current bid must be less than current max
 			if(bid_value_new <= max_bid_new) {
 			
 			//get information for current and max bid
@@ -67,8 +67,7 @@
 			//out.println("new current: " + bid_value_new +" ");
 			//out.println("new max: " +max_bid_new);
 			
-			//current bid must be less than current max
-			
+		
 				
 				//auto auction logic
 				if (bid_value_new <= bid_value) {
@@ -126,15 +125,23 @@
 				ps.setString(2, set_user);
 				ps.setInt(3, set_bid);
 				ps.setInt(4, set_max);
-				ps.setDate(5, null);
-				// run the update.
-				ps.executeUpdate();
-				//out.println("successful insert");
-				%>
-				<form method="post" action="../auction/auction_home.jsp">
-				<input type ="submit" value="return home" >
-				</form>
-				<% 
+				ResultSet get_current_time = stmt.executeQuery("SELECT CURRENT_TIMESTAMP");
+				if(get_current_time.next()){
+							ps.setTimestamp(5, get_current_time.getTimestamp("CURRENT_TIMESTAMP"));
+							// run the update.
+							ps.executeUpdate();
+							
+				} else {
+					out.println("Please try again. The end-date must be a time period beyond the current time. \n");
+					//out.println("successful insert");
+					%>
+					<form method="post" action="../auction/auction_home.jsp">
+					<input type ="submit" value="return home" >
+					</form>
+					<% 
+				}
+				
+				
 			}
 		
 		} else {
@@ -142,7 +149,6 @@
 			<button type="button" name="back" onclick="history.back()">Try Again.</button>
 			<%
 		}
-
 		} catch (Exception e) {
 			out.print(e);
 			out.println("something went wrong");%>
