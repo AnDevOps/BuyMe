@@ -1,4 +1,4 @@
-  <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+ <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*" %>
@@ -68,7 +68,7 @@ BuyMe Buyer Functions
 <div class="card" style="width: 18rem;" >
   <div class="card-body">
     <h5 class="card-title">Alert: Check Which Auction User Won</h5>
-    <form method="post" action="../buyer/higher_bid_alert.jsp">
+    <form method="post" action="../buyer/winning_bid_alert.jsp">
     <input type ="submit" value="Access Winning Auctions" >
     </form>
   </div>
@@ -79,7 +79,7 @@ BuyMe Buyer Functions
 <div class="card" style="width: 18rem;" >
   <div class="card-body">
     <h5 class="card-title">Alert: Higher Bid Placed </h5>
-    <form method="post" action="../buyer/higher_bid_alert.jsp">
+    <form method="post" action="../buyer/losing_bid_alert.jsp">
     <input type ="submit" value="Access Out-bidded Items" >
     </form>
   </div>
