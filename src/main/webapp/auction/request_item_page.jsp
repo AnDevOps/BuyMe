@@ -52,6 +52,12 @@
 				<% // table to show item descriptions %>
 			
 				<div align="center">
+				<!-- logout form  -->			  
+				<br>
+				<form method="post" action="../auction/auction_redirect.jsp">
+				<input type="submit" value="Auction Page">
+				</form>
+				<br>
 				<b><br>BuyMe Item</br></b>
 				<table border="2">
 				<tr>
@@ -141,7 +147,6 @@
 
 					item_bid =  stmt.executeQuery("select max(bid_value) from bids where item_id='"+itemid+"'"); 
 					if(item_bid.next() && item_bid.getInt("max(bid_value)") != 0) {
-						//session.setAttribute("current_max", item_bid.getInt("max(bid_value)"));
 						%>
 						<div align="center">
 						<table border="1">
@@ -153,7 +158,6 @@
 						</div>
 						<% 
 					} else {
-						//session.setAttribute("current_max", initialprice);
 						%>
 						<div align="center">
 						<table border="1">
@@ -171,7 +175,7 @@
 					
 					// form to bid
 					%>
-					
+					<br>
 					
 					<div align='center'> 
 					<form method="post" action="../auction/bid_attempt.jsp">
