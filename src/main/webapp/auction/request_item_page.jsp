@@ -106,6 +106,7 @@
 				</table>
 				<hr noshade size="16">
 				
+				<b><br>Auction Information</br></b>
 				
 				<%
 				// bidding session. this should only occur if the user attribute in session != username
@@ -115,8 +116,8 @@
 					<div align="center">
 					<table border="1">
 					<tr>
-						<th>User Status</th>
-						<td>Seller</td>
+						<th>Seller Status</th>
+						<td>Yes</td>
 					</tr>
 
 					</table>
@@ -128,14 +129,16 @@
 					<div align="center">
 					<table border="1">
 					<tr>
-						<th>User Status</th>
-						<td>Buyer</td>
+						<th>Seller Status</th>
+						<td>N/A</td>
 					</tr>
 
 					</table>
 					
 					</div>
 					<% 
+					
+
 					item_bid =  stmt.executeQuery("select max(bid_value) from bids where item_id='"+itemid+"'"); 
 					if(item_bid.next() && item_bid.getInt("max(bid_value)") != 0) {
 						//session.setAttribute("current_max", item_bid.getInt("max(bid_value)"));
@@ -162,6 +165,9 @@
 						</div>
 						<% 
 					}
+					item_bid.close();
+					
+					
 					
 					// form to bid
 					%>
@@ -173,7 +179,16 @@
 					<tr><td>Increase bid by</td><td><input type="number" value = 0 name="increase_bid_modifier"> * $<% out.println(" "+ incrementamt ); %></td></tr>
 					<tr><td>Set max bid(Optional)</td><td><input type="number" value = 0 name="max_bid_modifier"> * $<% out.println(" "+ incrementamt); %></td></tr>
 					</table>
-					<input type="submit" ="input bid">
+					<input type="submit" value="Input Bid">
+					</form>
+					
+					</div>
+					
+					<hr noshade size="16">
+					<b><br>Bid Status </br></b>
+					<div align="center">
+					<form method="post" action="../auction/bid_status_check.jsp">
+					<input type="submit" value="Check Bid Status">
 					</form>
 					</div>
 					
