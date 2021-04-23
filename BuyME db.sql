@@ -58,7 +58,7 @@ CREATE TABLE `users` (
 --
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` (username, password, name) VALUES ('user1','password','Patricia Jones'), ('user2','password', 'Deez Nuts');
+INSERT INTO `users` (username, password, name) VALUES ('user1','password','Patricia Jones'), ('user2','password', 'Deez Nuts'),('default_bid',null,null);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 --
@@ -112,6 +112,26 @@ CREATE TABLE `help` (
   FOREIGN KEY (`username`) REFERENCES `admin` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+DROP TABLE IF EXISTS `questions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `questions` (
+  `question` varchar(200) NOT NULL DEFAULT '',
+  `question_id` integer NOT NULL DEFAULT 0,
+  `username` varchar(50) NOT NULL DEFAULT '',
+  `answer` varchar(200) NOT NULL DEFAULT '',
+  PRIMARY KEY(`question_id`,`username`),
+  FOREIGN KEY (`username`) REFERENCES `users` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+LOCK TABLES `questions` WRITE;
+/*!40000 ALTER TABLE `questions` DISABLE KEYS */;
+INSERT INTO `questions` (question, question_id, username, answer) values
+("How do I create a new account?", 0, "user1", "Go to the home page and click on the register button under the customer header");
+/*!40000 ALTER TABLE `questions` ENABLE KEYS */;
+UNLOCK TABLES;
 --
 -- Table structure for table `items`
 --
@@ -157,7 +177,7 @@ CREATE TABLE `shoes` (
   `color` varchar(50) DEFAULT NULL,
   `type` varchar(50) DEFAULT NULL,
   `clothing_type` varchar(50) DEFAULT NULL,
-  FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`)
+  FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 --
@@ -182,7 +202,7 @@ CREATE TABLE `shirts` (
   `color` varchar(50) DEFAULT NULL,
   `type` varchar(50) DEFAULT NULL,
   `clothing_type` varchar(50) DEFAULT NULL,
-  FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`)
+  FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 --
@@ -207,7 +227,7 @@ CREATE TABLE `hats` (
   `color` varchar(50) DEFAULT NULL,
   `type` varchar(50) DEFAULT NULL,
   `clothing_type` varchar(50) DEFAULT NULL,
-  FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`)
+  FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 --
