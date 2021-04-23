@@ -145,6 +145,8 @@
 					</div>
 					<% 
 					
+				
+					
 					item_bid =  stmt.executeQuery("select max(bid_value) from bids where item_id='"+itemid+"'"); 
 					if(item_bid.next() && item_bid.getInt("max(bid_value)") != 0) {
 						%>
@@ -165,41 +167,57 @@
 							<th>Current Bid(Initial Price)</th>
 							<td>$ <%=initialprice%></td>
 						</tr>
-						</table>
+						</table>	<hr noshade size="16">
 						</div>
 						<% 
 					}
-					item_bid.close();
+			
+					//now check if user can make the first bid on the item rather than subsequent bids
+					 item_bid =  stmt.executeQuery("select * from bids  where item_id = '"+item_id+"' and username = '"+user+"' "); 
+					if(item_bid.next()){
+
+						// form to bid
+						%>
+						<br>
+					
+						<div align='center'> 
+						<form method="post" action="../auction/bid_attempt.jsp">
+						<table>
+						<tr><td>Increase bid by</td><td><input type="number" value = 0 name="increase_bid_modifier"> * $<% out.println(" "+ incrementamt ); %></td></tr>
+						<tr><td>Set max bid(Optional)</td><td><input type="number" value = 0 name="max_bid_modifier"> * $<% out.println(" "+ incrementamt); %></td></tr>
+						</table>
+						<input type="submit" value="Input Bid">
+						</form>
+						
+						</div>
+						
+						<hr noshade size="16">
+						<b><br>Bid Status </br></b>
+						<div align="center">
+						<form method="post" action="../auction/bid_status_check.jsp">
+	  					<input type="radio" id="item" name="item_id" value="<%=itemid%>" required>
+	  					<label for="item">Item ID: <%=itemid%></label><br>
+	  					<input type="submit" value="Check Bid Status"><input type="reset">
+						</form>
+						</div>
+						
+						
+						<% 
+					}else{
+						%>
+							<div align="center">
+							<form method="post" action="../auction/first_bid_attempt.jsp">
+		 					<label for="item">Make initial bid?</label><br>
+		 					Yes<input type="radio" id="item" name="item_id" value="<%=itemid%>" required><br>
+		 					<input type="submit" value="submit">
+							</form>
+							</div>
+						
+						<% 
+					}
 					
 					
 					
-					// form to bid
-					%>
-					<br>
-					
-					<div align='center'> 
-					<form method="post" action="../auction/bid_attempt.jsp">
-					<table>
-					<tr><td>Increase bid by</td><td><input type="number" value = 0 name="increase_bid_modifier"> * $<% out.println(" "+ incrementamt ); %></td></tr>
-					<tr><td>Set max bid(Optional)</td><td><input type="number" value = 0 name="max_bid_modifier"> * $<% out.println(" "+ incrementamt); %></td></tr>
-					</table>
-					<input type="submit" value="Input Bid">
-					</form>
-					
-					</div>
-					
-					<hr noshade size="16">
-					<b><br>Bid Status </br></b>
-					<div align="center">
-					<form method="post" action="../auction/bid_status_check.jsp">
-  					<input type="radio" id="item" name="item_id" value="<%=itemid%>" required>
-  					<label for="item">Item ID: <%=itemid%></label><br>
-  					<input type="submit" value="Check Bid Status"><input type="reset">
-					</form>
-					</div>
-					
-					
-					<% 
 				}
 				%>
 				<% 
