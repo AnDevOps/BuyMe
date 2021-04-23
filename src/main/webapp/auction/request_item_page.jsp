@@ -39,8 +39,8 @@
 			// user attribute used to allow whether they can bid or not
 			String user = (String)session.getAttribute("user"); 
 		
-			
 			if(item_request.next()) {	
+				out.println("welp");
 				int initialprice = item_request.getInt("initial_price");
 				session.setAttribute("initial_price",item_request.getInt("initial_price"));
 				int itemid = item_request.getInt("item_id");
@@ -334,8 +334,14 @@
 				<%
 				}
 				
+			} else {
+				// case where they request a non-existent item_id
+				out.println("The requested page for the item id does not exist.");
+				%>
+				<button type="button" name="back" onclick="history.back()">Try Again.</button>
+				<%
 			}
-			}
+		}
 		} catch (Exception e) {
 			out.print(e);
 			out.println("error has occured.");%>
