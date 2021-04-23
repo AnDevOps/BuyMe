@@ -1,4 +1,4 @@
-  <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+ <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*" %>
@@ -39,12 +39,14 @@ Item Information
 		<tr><td><label for="item_gender">Gender: </label><input type="text" id="item_gender" name="gender"></td></tr>
 		<tr><td><label for="item_color">Color: </label><input type="text" id="item_color" name="color"></td></tr>
 		<tr><td><label for="item_type">Type: </label><input type="text" id="item_type" name="type"></td></tr>
+		<tr><td><br></br></td></tr>
 		<tr><td>(minimum win must >= initial price)</td></tr>
+		<tr><td>(set minimum to 0 if no reserve)</td></tr>
 		<tr><td><label for="item_min">Minimum Win: </label><input type="text" id="item_min" name="minimum"></td></tr>
+		<tr><td><br></br></td></tr>
 		<tr><td>(time format: YYYY-MM-DD HH:MM:SS)</td></tr>
 		<tr><td><label for="item_end_date">End-Date: </label><input type="text" id="item_end_date" name="end_date"></td></tr>
 		
-
 		<tr><td><select id="clothing_type" name="clothing_type" form="create_auction">
   			<option value="shirts">Shirts</option>
   			<option value="shoes">Shoes</option>
@@ -56,15 +58,6 @@ Item Information
 		
 		
 	</form>
-
-
-
-
-
 </div>
 </div>
-
-
-
-
 </html>
