@@ -110,7 +110,7 @@ BuyMe Login Page
 			items_info.close();
 			ResultSet get_current_time = stmt.executeQuery("SELECT CURRENT_TIMESTAMP");
 			get_current_time.next();
-			out.println(get_current_time.getTimestamp("CURRENT_TIMESTAMP"));
+			out.println("Current Time: " + get_current_time.getTimestamp("CURRENT_TIMESTAMP"));
 			
 		} catch (Exception e) {
 			//out.print(e);
