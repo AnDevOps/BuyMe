@@ -24,6 +24,7 @@
 			// to insert into items
 			int item_id = 0;
 			String initial_price = request.getParameter("initial_price");
+			int initialprice = Integer.valueOf(initial_price);
 			String increment_price = request.getParameter("increment");
 			// start date
 			String end_date = request.getParameter("end_date");
@@ -42,7 +43,6 @@
 	
 			
 			// clothing type
-
 			// insert logic 
 			if(name != null && name.length() != 0
 			 && initial_price != null && initial_price.length() != 0
@@ -57,7 +57,7 @@
 			 && !(initial_price.matches("[a-zA-Z]+")) // checks if initial price is all numbers
 			 && !(increment_price.matches("[a-zA-Z]+"))  // checks if increment priec is all numbers
 			 && !(item_minimum.matches("[a-zA-Z]+"))// checks if minimum price is all numbers
-			 && Integer.parseInt(item_minimum) >= Integer.parseInt(initial_price)) { // minimum must be >= initial
+) { 
 				
 				// find the item id
 				ResultSet find_item_id = stmt.executeQuery("select max(item_id) from items");
@@ -116,10 +116,27 @@
 				
 				// run the update for the respective db
 				ps.executeUpdate();
-
+						
+				// reset the parameters
+				ps.clearParameters();
+						
+				
+				// dummy bidder
+				String dummy_insert = "insert into bids(item_id, username, bid_value, max_bid, date_time)" +  "values (?, ?, ?, ?, ?)";
+				PreparedStatement ps2 = con.prepareStatement(dummy_insert);
+							
+				ps2.setInt(1, item_id);
+				ps2.setString(2, "default_bid");
+				ps2.setInt(3, initialprice);
+				ps2.setInt(4, 0);
+				ps2.setTimestamp(5, null);
+							
+							
+				ps2.executeUpdate();
+				
+						
 				// redirects back to the market home
 				response.sendRedirect("../auction/auction_home.jsp");
-
 			} else {
 				out.println("Invalid input. All fields require an input and or proper inputs. \n"); %>
 				<button type="button" name="back" onclick="history.back()">Try Again.</button>
