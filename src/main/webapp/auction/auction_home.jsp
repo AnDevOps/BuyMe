@@ -53,6 +53,17 @@ BuyMe Login Page
 </div>
 </th>
 
+<th> 
+<div class="card" style="width: 18rem;" >
+  <div class="card-body">
+    <h5 class="card-title">Questions</h5>
+    <form method="post" action="question_home.jsp">
+    <input type ="submit" value="Access Questions Page" >
+    </form>
+  </div>
+</div>
+</th>
+
 </tr>
 </thead>
 </table>
