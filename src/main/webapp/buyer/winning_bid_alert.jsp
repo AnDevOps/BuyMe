@@ -32,7 +32,7 @@ BuyMe Alert
 	<br>	
 
 <hr noshade size="16">
-<b><br>Alert: The items shown below are where another user has placed a bid higher than your current bid.</br></b>
+<b><br>Alert: These are the items you currently have the highest bid on.</br></b>
 <table border="2">
 	<tr>
 	<td>Item ID</td>
