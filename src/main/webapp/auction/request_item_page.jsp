@@ -11,6 +11,12 @@
 </head>
 <body>
 
+<div align="center"> 
+<form action="../auction/auction_redirect.jsp">
+<input type="submit" value="Auction Page">
+</form>
+</div>
+
 	<%
 		try {
 			//Get the database connection
@@ -40,7 +46,6 @@
 			String user = (String)session.getAttribute("user"); 
 		
 			if(item_request.next()) {	
-				out.println("welp");
 				int initialprice = item_request.getInt("initial_price");
 				session.setAttribute("initial_price",item_request.getInt("initial_price"));
 				int itemid = item_request.getInt("item_id");
@@ -51,11 +56,6 @@
 				<% // table to show item descriptions %>
 			
 				<div align="center">
-				<!-- logout form  -->			  
-			
-				<form method="post" action="../auction/auction_redirect.jsp">
-				<input type="submit" value="Auction Page">
-				</form>
 				<br>
 				<b><br>BuyMe Item Page</br></b>
 				<table border="2">
@@ -85,8 +85,9 @@
 				
 				<hr noshade size="16">
 				</div>
-			<% 
 			
+			
+			<% 
 			specific_item = stmt.executeQuery("select * from "+clothingtype+" where item_id = "+itemid+" ");
 			if(specific_item.next()) {%>
 				<%// item specifications (desc) %>
@@ -320,10 +321,9 @@
 							<%
 						}
 					}else{
-						out.println("The requested page for the item id does not exist.");
-						%>
-							<button type="button" name="back" onclick="history.back()">Try Again.</button>
-						<%
+						%> 
+						The allocated time for this auction has ended. There were no bids placed for this item.
+						<% 
 					}
 				
 				//if query pulls nothing then the item_id is n/a
