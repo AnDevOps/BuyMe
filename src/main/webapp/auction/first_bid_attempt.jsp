@@ -42,6 +42,12 @@
 						// run the update.
 						ps.executeUpdate();
 			}
+			
+			insert = "INSERT INTO `watchlists` (item_id, username) " + "VALUES (?, ?)";
+			ps = con.prepareStatement(insert);
+			ps.setInt(1, item_id);
+			ps.setString(2, set_user);
+			ps.executeUpdate();
 			out.println("success");
 		}else{
 			out.println("try again");
