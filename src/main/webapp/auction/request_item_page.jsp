@@ -12,7 +12,6 @@
 <body>
 
 	<%
-
 		try {
 			//Get the database connection
 			ApplicationDB db = new ApplicationDB();	
@@ -46,15 +45,21 @@
 				session.setAttribute("initial_price",item_request.getInt("initial_price"));
 				int itemid = item_request.getInt("item_id");
 				int incrementamt = item_request.getInt("increment");
-				session.setAttribute("increment",item_request.getInt("increment"));
 				String username = item_request.getString("username");
 				String clothingtype = item_request.getString("clothing_type");%>
 				
 				<% // table to show item descriptions %>
+				<div align="left">
+				<br>
+				<form method="post" action="../auction/watchlist_attempt.jsp">
+				<input type="submit" value="add item to watchlist">
+				</form>
+				
+				</div>
 			
 				<div align="center">
 				<!-- logout form  -->			  
-				<br>
+			
 				<form method="post" action="../auction/auction_redirect.jsp">
 				<input type="submit" value="Auction Page">
 				</form>
@@ -78,8 +83,8 @@
 				<td><%=item_request.getString("clothing_type") %></td>
 				<td><%=initialprice%></td>
 				<td><%=item_request.getInt("increment") %></td>
-				<td><%=item_request.getDate("start_date") %></td>
-				<td><%=item_request.getDate("end_date") %></td>
+				<td><%=item_request.getTimestamp("start_date") %></td>
+				<td><%=item_request.getTimestamp("end_date") %></td>
 				<td><%=item_request.getInt("rating") %></td>
 				<td><%=item_request.getString("username") %></td>
 				</tr>
@@ -173,9 +178,8 @@
 					}
 			
 					//now check if user can make the first bid on the item rather than subsequent bids
-					 item_bid =  stmt.executeQuery("select * from bids  where item_id = '"+item_id+"' and username = '"+user+"' "); 
+					 item_bid =  stmt.executeQuery("select * from bids  where item_id = '"+item_id+"' and username != 'default_bid' "); 
 					if(item_bid.next()){
-
 						// form to bid
 						%>
 						<br>
@@ -233,6 +237,7 @@
 				ResultSet date_request = stmt.executeQuery("select * from items where item_id='"+item_id+"'and end_date < now()");
 				
 				if(date_request.next()) {	
+					
 					//this item has ended - get the max bid for it and compare to current user, store min_win first
 					int reserve = date_request.getInt("min_win");	
 							
@@ -262,8 +267,8 @@
 					<td><%=date_request.getString("clothing_type") %></td>
 					<td><%=initialprice%></td>
 					<td><%=date_request.getInt("increment") %></td>
-					<td><%=date_request.getDate("start_date") %></td>
-					<td><%=date_request.getDate("end_date") %></td>
+					<td><%=date_request.getTimestamp("start_date") %></td>
+					<td><%=date_request.getTimestamp("end_date") %></td>
 					<td><%=date_request.getInt("rating") %></td>
 					<td><%=date_request.getString("username") %></td>
 					</tr>
