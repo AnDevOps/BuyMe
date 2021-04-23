@@ -49,13 +49,6 @@
 				String clothingtype = item_request.getString("clothing_type");%>
 				
 				<% // table to show item descriptions %>
-				<div align="left">
-				<br>
-				<form method="post" action="../auction/watchlist_attempt.jsp">
-				<input type="submit" value="add item to watchlist">
-				</form>
-				
-				</div>
 			
 				<div align="center">
 				<!-- logout form  -->			  
@@ -64,7 +57,7 @@
 				<input type="submit" value="Auction Page">
 				</form>
 				<br>
-				<b><br>BuyMe Item</br></b>
+				<b><br>BuyMe Item Page</br></b>
 				<table border="2">
 				<tr>
 				<td>Item ID</td>
@@ -116,6 +109,13 @@
 				<td><%=specific_item.getString("clothing_type") %></td>
 				</tr>
 				</table>
+				
+				<div align="center">
+				<form method="post" action="../buyer/watchlist_attempt.jsp">
+				<input type="submit" value="Add Item To Watch List">
+				</form>
+				
+				</div>
 				<hr noshade size="16">
 				
 				<b><br>Auction Information</br></b>
