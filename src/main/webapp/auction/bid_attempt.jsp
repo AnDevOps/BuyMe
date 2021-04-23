@@ -71,7 +71,10 @@
 				
 				//auto auction logic
 				if (bid_value_new <= bid_value) {
-					//do nothing user input 0
+                    out.println("Please try again. You must bid at least more than the current amount \n");
+                    %>
+                    <button type="button" name="back" onclick="history.back()">Try Again</button>
+                    <% 
 					
 				}else if (bid_value_new > bid_value) {
 					
@@ -80,7 +83,12 @@
 						set_user = user;
 						set_bid = bid_value_new;
 						set_max = max_bid_new;
-						out.println("success");
+						out.println("User has successively placed a bid.");
+						%>
+	                    <button type="button" name="back" onclick="history.back()">Item Page</button>
+	                    <% 
+						
+						
 					}else if (bid_value_new == max_bid){
 		
 						if (max_bid_new > max_bid){
@@ -88,7 +96,10 @@
 							set_user = user;
 							set_bid = max_bid;
 							set_max = max_bid_new;
-							out.println("success");
+							out.println("User has successively placed a bid.");
+							%>
+		                    <button type="button" name="back" onclick="history.back()">Item Page</button>
+		                    <% 
 						}else if (max_bid_new <= max_bid){
 							//'update' old bid with current bid = max
 							set_user = user_prev_highestbid;
@@ -103,7 +114,10 @@
 							set_user = user;
 							set_bid = bid_value;
 							set_max = max_bid_new;
-							out.println("success");
+							out.println("User has successively placed a bid.");
+							%>
+		                    <button type="button" name="back" onclick="history.back()">Item Page</button>
+		                    <% 
 						}else if (max_bid_new == max_bid){
 							//'update' old bid with current bid = max
 							set_user = user_prev_highestbid;
@@ -119,17 +133,30 @@
 						}
 					
 				}
-				String insert = "INSERT INTO `bids` (item_id, username, bid_value, max_bid, date_time) " + "VALUES (?, ?, ?, ?, ?)";
-				PreparedStatement ps = con.prepareStatement(insert);
-				ps.setInt(1, item_id);
-				ps.setString(2, set_user);
-				ps.setInt(3, set_bid);
-				ps.setInt(4, set_max);
-				ResultSet get_current_time = stmt.executeQuery("SELECT CURRENT_TIMESTAMP");
-				if(get_current_time.next()){
-							ps.setTimestamp(5, get_current_time.getTimestamp("CURRENT_TIMESTAMP"));
-							// run the update.
-							ps.executeUpdate();
+					String insert = "INSERT INTO `bids` (item_id, username, bid_value, max_bid, date_time) " + "VALUES (?, ?, ?, ?, ?)";
+					PreparedStatement ps = con.prepareStatement(insert);
+					ps.setInt(1, item_id);
+					ps.setString(2, set_user);
+					ps.setInt(3, set_bid);
+					ps.setInt(4, set_max);
+					ResultSet get_current_time = stmt.executeQuery("SELECT CURRENT_TIMESTAMP");
+					if(get_current_time.next()){
+								ps.setTimestamp(5, get_current_time.getTimestamp("CURRENT_TIMESTAMP"));
+								// run the update.
+								ps.executeUpdate();
+								
+					//insert into watchlists automatically
+					item_bid =  stmt.executeQuery("select * from watchlists where item_id = '"+item_id+"' and username = '"+user+"'"); 
+					if(item_bid.next()){
+					
+					}else{
+						insert = "INSERT INTO `watchlists` (item_id, username) " + "VALUES (?, ?)";
+						ps = con.prepareStatement(insert);
+						ps.setInt(1, item_id);
+						ps.setString(2, user);
+						ps.executeUpdate();
+					}
+					
 							
 				} else {
 					out.println("Please try again. The end-date must be a time period beyond the current time. \n");
