@@ -35,6 +35,7 @@
 								<td><br>
 						</table>
 						<input type="submit" value="Edit">
+						<input type ="submit" value="Delete Account" formaction = "../login/delete_customer_account_form.jsp">
 					</form>
 				</th>
 				<th>

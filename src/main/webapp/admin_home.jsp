@@ -17,6 +17,12 @@
     <input type ="submit" value="Delete Account" formaction = "login/delete_representative_form.jsp">
  	</form>
  </th>
+ <th>
+    <h5 class="card-title">Generate Sales Report</h5>
+    <form method="post" action="generate_sales_report.jsp"> 
+    <input type ="submit" value="Generate">
+ 	</form>
+ </th>
 </thead>
 </table>
 </body>
