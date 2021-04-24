@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
+    pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
-<%@ page import="javax.servlet.http.*,javax.servlet.*"%>
+<%@ page import="javax.servlet.http.*,javax.servlet.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,18 +9,20 @@
 <title>Search Results</title>
 </head>
 <body>
-
+<div style ="overflow-y:auto" align='center'>
 <table border="2">
 	<tr>
 	<td>Item ID</td>
 	<td>Name</td>
 	<td>Type</td>
-	<td>Initial Price</td>
-	<td>Current Offer</td>
+	<td>Bid Value</td>
 	<td>Start Date</td>
 	<td>End Date</td>
-	<td>Rating</td>
 	<td>Seller</td>
+	<td>Size</td>
+	<td>Gender</td>
+	<td>Color</td>
+	<td>Type</td>
 	</tr>
 	<%
 		try{
@@ -30,38 +32,41 @@
 			
 			//Create sql statement 
 			Statement stmt = con.createStatement(); 
-			String sqlQuery = "select * from items join ";
 			
 			String qType = request.getParameter("queryType");
 			String gender = request.getParameter("gender");
 			String name = request.getParameter("query");
 			String color = request.getParameter("color");
-			Double maxPrice = Double.parseDouble(request.getParameter("MaxPrice"));
+			int maxPrice = Integer.parseInt(request.getParameter("MaxPrice"));
 			String sortingMethod = request.getParameter("SortingMethod");
 			
-			sqlQuery += qType;
-			sqlQuery += "on(items.item_id = )";
-			sqlQuery += qType; 
-			sqlQuery += ".item_id)";
-			sqlQuery += " where items.gender = ";
-			sqlQuery += gender; 
-			if(name != ""){
-				sqlQuery += " and ";
-				sqlQuery+= "items.type = %";
-				sqlQuery+= name; 
-				sqlQuery+= "%";
-			}
+			String sqlQuery = "select * from(select t1.item_id, t1.username, items.start_date, items.end_Date, items.name, items.clothing_type, t1.bid_value ";
+			sqlQuery+= "from (select * from bids where bid_value in (select max(bid_value) from bids group by item_id) group by item_id) as t1, items ";
+			sqlQuery+= "where t1.item_id = items.item_id) as t2 ";
+			sqlQuery+= "join " + qType + " on t2.item_id = " + qType + ".item_id";
 
-			if(maxPrice != 0.0){
-				sqlQuery+= " and ";
-				sqlQuery+= "items.current_offer < ";
-				sqlQuery+= Double.toString(maxPrice);
+			sqlQuery += " where ";
+			sqlQuery+= qType + ".gender = '";
+			sqlQuery += gender; 
+			sqlQuery+= "'";
+			if(name != ""){
+				sqlQuery += " and (";
+				sqlQuery+= "t2.name = '";
+				sqlQuery+= name; 
+				sqlQuery+= "' or t2.name like '";
+				sqlQuery+= name + "%')";
+			
 			}
 			
 			if(color != ""){
 				sqlQuery+= " and ";
-				sqlQuery+= "items.color < ";
+				sqlQuery+= qType + ".color = '";
 				sqlQuery+= color;
+				sqlQuery+= "'";
+			}
+
+			if(maxPrice != 0.0){
+				sqlQuery+= " and t2.bid_value < " + maxPrice; 
 			}
 			
 			if(sortingMethod == "alphabetical"){
@@ -71,25 +76,33 @@
 			} else if(sortingMethod == "descendingPrice"){
 				sqlQuery+= " order by current_offer desc";
 			}
+			System.out.println("hello");
+			sqlQuery+= ";";
+			System.out.println(sqlQuery);
 			ResultSet result = stmt.executeQuery(sqlQuery);
+			result.next(); 
 
-			%>
-			
-			<tr>
+			do{
+				
+				%>
+				
+				<tr>
 				<td><%=result.getInt("item_id") %></td>
 				<td><%=result.getString("name") %></td>
 				<td><%=result.getString("clothing_type") %></td>
-				<td><%=result.getInt("initial_price") %></td>
-				<td><%=result.getInt("current_offer") %></td>
+				<td><%=result.getInt("bid_value") %></td>
 				<td><%=result.getDate("start_date") %></td>
 				<td><%=result.getDate("end_date") %></td>
-				<td><%=result.getInt("rating") %></td>
 				<td><%=result.getString("username") %></td>
+				<td><%=result.getString("size") %></td>
 				<td><%=result.getString("gender") %></td>
 				<td><%=result.getString("color") %></td>
 				<td><%=result.getString("type") %></td>
-				<td><%=result.getString("size") %></td>
-			</tr>
+				</tr>
+			<% 	
+			}while(result.next());
+			%>
+			
 		<%
 			
 		%>
@@ -98,8 +111,8 @@
 		
 		}%>
 </table>
+</div>
 <div align='center'> 
-
 		<form method="post" action="../auction/request_item_page.jsp">
 		<table>
 		<tr>    

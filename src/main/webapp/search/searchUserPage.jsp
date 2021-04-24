@@ -1,33 +1,68 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
-<!--Import some libraries that have classes that we need -->
+    pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
-<%@ page import="javax.servlet.http.*,javax.servlet.*"%>
+<%@ page import="javax.servlet.http.*,javax.servlet.*" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>UserPage</title>
+<title>Search User</title>
 </head>
 <body>
-
-</body>
-</html>
-<%
-	try{
+<div style ="overflow-y:auto" align='center'>
+<table border="2">
+	<tr>
+	<td>UserName</td>
+	<td>UserID</td>
+	<td>Rating</td>
+	</tr>
+	<% 
+	try{ 
+		
 		ApplicationDB db = new ApplicationDB(); 
 		Connection con = db.getConnection(); 
-		//Create sql statement 
+		
 		Statement stmt = con.createStatement(); 
-		String userName = request.getParameter("userName");
-
-		String sqlQuery = "select * from users where users.username like '%"; 
-		sqlQuery+= userName; 
-		sqlQuery+= "%' ";
+		
+		String username = request.getParameter("userName");
+		String sqlQuery = "select * from users ";
+		if(username != ""){
+			sqlQuery += "where username = '" + username + "' or username like '" + username + "%'";
+		}
+		sqlQuery+=";";
+		System.out.println(sqlQuery);
 		ResultSet result = stmt.executeQuery(sqlQuery);
+		
+		while(result.next()){
+			System.out.println(result.getString("username"));
+			System.out.println(result.getInt("user_id"));
+			System.out.println(result.getInt("rating"));
 
-	} catch(Exception E){
+			%>
+			<tr>
+			<td><%= result.getString("username") %></td>
+			<td><%= result.getInt("user_id") %></td>
+			<td><%= result.getInt("rating") %></td>
+			</tr>
+			<% 
+		}		
+	} catch (Exception E){
 		
 	}
+	%>
+	
+</table>
+</div>
+<div align='center'> 
 
-%>
+		<form method="post" action="userPage.jsp">
+		<table>
+		<tr>    
+		<td>UserName</td><td><input type="text" name="username"> <input type="submit" value="Access User Page"> </td> 
+		</tr>
+		<tr><td>
+		</table>
+		</form>
+</div>
+</body>
+</html>
