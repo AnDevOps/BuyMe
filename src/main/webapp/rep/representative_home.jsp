@@ -7,6 +7,11 @@
 <title>Customer Service Representative Home</title>
 </head>
 <body>
+	<br>
+		<form method="post" action="../login/logout_customer_form.jsp">
+		<input type="submit" value="Logout">
+		</form>
+	<br>
 	<table>
 		<thead>
 			<tr>
@@ -29,8 +34,7 @@
 							<tr>
 								<td><br>
 						</table>
-						<input type="submit" value="Edit"> <input type="submit"
-							value="Go Back" formaction="representative_home.jsp">
+						<input type="submit" value="Edit">
 					</form>
 				</th>
 				<th>

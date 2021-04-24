@@ -11,12 +11,55 @@
 <body>
 	<div align='center'>
 		BuyMe Delete Auction Page <br>
-		<form method="post" action="../login/logout_representative_form.jsp">
+		<form method="post" action="../login/logout_customer_form.jsp">
 			<input type="submit" value="Logout">
 			<button type="button" name="back" onclick="history.back()">Go
 				Back</button>
 		</form>
-		<br> <b><br>Auction House</br></b>
+		<div align='center'>
+			<hr noshade size="16">
+			Delete Auction
+			<form action="verify_auction_delete.jsp" id="delete_auction">
+				<table>
+					<tr>
+						<td><label for="item_id">Item ID:</label><input type="text"
+							id="item_id" name="item_id"></td>
+					</tr>
+					<tr>
+						<td><select id="clothing_type" name="clothing_type"
+							form="delete_auction">
+								<option value="shirts">Shirts</option>
+								<option value="shoes">Shoes</option>
+								<option value="hats">Hats</option>
+						</select></td>
+					</tr>
+				</table>
+				<input type="submit" value="Submit">
+			</form>
+		</div>
+		<div align='center'>
+			<hr noshade size="16">
+			View Bids
+			<form action="delete_bid.jsp" id="delete_bid">
+				<table>
+					<tr>
+						<td><label for="item_id">Item ID:</label><input type="text"
+							id="item_id" name="item_id"></td>
+					</tr>
+					<tr>
+						<td><select id="clothing_type" name="clothing_type"
+							form="delete_bid">
+								<option value="shirts">Shirts</option>
+								<option value="shoes">Shoes</option>
+								<option value="hats">Hats</option>
+						</select></td>
+					</tr>
+				</table>
+				<input type="submit" value="Submit">
+			</form>
+		</div>
+		<hr noshade size="16">
+				<br> <b><br>Auction House</br></b>
 		<table border="2">
 			<tr>
 				<td>Item ID</td>
@@ -70,27 +113,6 @@
 			}
 			%>
 		</table>
-		<div align='center'>
-			<hr noshade size="16">
-			BuyMe Seller Page
-			<form action="verify_auction_delete.jsp" id="delete_auction">
-				<table>
-					<tr>
-						<td><label for="item_id">Item ID:</label><input type="text"
-							id="item_id" name="item_id"></td>
-					</tr>
-					<tr>
-						<td><select id="clothing_type" name="clothing_type"
-							form="delete_auction">
-								<option value="shirts">Shirts</option>
-								<option value="shoes">Shoes</option>
-								<option value="hats">Hats</option>
-						</select></td>
-					</tr>
-				</table>
-				<input type="submit" value="Submit">
-			</form>
-		</div>
 	</div>
 </body>
 </html>
