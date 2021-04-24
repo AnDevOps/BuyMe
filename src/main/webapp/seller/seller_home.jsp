@@ -55,7 +55,7 @@ BuyMe Seller Page
 			
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
-			ResultSet items_info = stmt.executeQuery("select * from items where username='"+user+"'");
+			ResultSet items_info = stmt.executeQuery("select * from items where username='"+user+"' and end_date > now()");
 			while(items_info.next()) {
 				%>
 				<tr>
