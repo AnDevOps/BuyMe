@@ -40,7 +40,7 @@
 		</table>
 		</div>
 		
-		<div align='left'>
+		<div style ="overflow-y:auto" align='left'>
 		<p>Bids</p>
 		<table border="2">
 		<tr>
