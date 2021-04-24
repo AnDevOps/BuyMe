@@ -306,26 +306,40 @@
 					<b><br>Auction Information</br></b>
 					
 					<%
-							
-					date_request = stmt.executeQuery("select * from bids where bid_value in (select max(bid_value) from bids group by item_id) and item_id = '"+item_id+"' ");
+						
+					// check_seller is used to check if the seller is accessing the page of something that has already been sold/not sold.
+					ResultSet check_seller = stmt.executeQuery("select username from items where item_id="+item_id+"");
+					if(check_seller.next()) {
+						String seller_name_check = check_seller.getString("username");
+						check_seller.close();
+						
+						date_request = stmt.executeQuery("select * from bids where bid_value in (select max(bid_value) from bids group by item_id) and item_id = '"+item_id+"' ");
 						//if we successfully query the max bid for the item check that the username = current user and that the current bid > reserve
-					if(date_request.next()) {
-						if ( (date_request.getString("username").equals(user)) && (date_request.getInt("bid_value") >= reserve) ){
-							%>
-							You have won this item!
-							<%
-						//else if max_bid > reserve - what do?
+								
+						if(date_request.next()) {
+							if ( (date_request.getString("username").equals(user)) && (date_request.getInt("bid_value") >= reserve) ){
+								%>
+								You have won this item!
+								<%
+					
+							} else if (seller_name_check.equals(user)) {
+						 		%>
+						 		The allocated time for this auction has ended. You have sold this item.
+						 		<% 
+							
+							//else if max_bid > reserve - what do?	
+							} else{
+								%>
+								You did not win this item! Better luck next time sport!
+								<%
+							}
 						}else{
-							%>
-							You did not win this item! Better luck next time sport!
-							<%
-						}
-					}else{
 						%> 
 						The allocated time for this auction has ended. There were no bids placed for this item.
 						<% 
-					}
-				
+						}
+					} 
+					
 				//if query pulls nothing then the item_id is n/a
 				}else{
 					out.println("The requested page for the item id does not exist.");
