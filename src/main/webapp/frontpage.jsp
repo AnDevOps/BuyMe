@@ -27,7 +27,6 @@ BuyMe Login Page
     <form method="post" action="login/login_customer_form.jsp">
     <input type ="submit" value="Login" >
     <input type ="submit" value="Register" formaction = "login/register_customer_form.jsp">
-    <input type ="submit" value="Delete Account" formaction = "login/delete_customer_account_form.jsp">
     </form>
   </div>
 </div>

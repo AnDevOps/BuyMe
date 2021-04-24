@@ -28,20 +28,20 @@
 			ResultSet login_info = stmt.executeQuery("select * from users where username='"+username+"'");
 
 			if(login_info.next() && username != null && username.length() != 0) {
-				PreparedStatement ps = con.prepareStatement("delete from users where username=? and password=? and name=?");
-				ps.setString(1, username); ps.setString(2, password); ps.setString(3, name);
+				PreparedStatement ps = con.prepareStatement("delete from users where username=?");
+				ps.setString(1, username);
 				//Run the query against the DB
 				ps.executeUpdate();
 				
 				out.println("User account has been successfully deleted."); %>
 				
-				<form method="post" action="../login/login_customer_form.jsp">
-    			<input type ="submit" value="Login" >
+				<form method="post" action="../rep/representative_home.jsp">
+    			<input type ="submit" value="Back" >
 
     			</form>
 				<%
 			} else {
-				out.println("Invalid username or password. Please try again."); %>
+				out.println("Invalid username. Please try again."); %>
 				<button type="button" name="back" onclick="history.back()">Try Again.</button>
 				<%
 						
