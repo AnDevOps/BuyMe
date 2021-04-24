@@ -10,18 +10,11 @@
 </head>
 <body>
 <hr noshade size="16">
-<b><br>Auction House</br></b>
+<h2>Sales Report</h2>
 <table border="2">
 	<tr>
 	<td>Clothing Type</td>
-	<td>Total Profit</td>
-	<td>Type</td>
-	<td>Initial Price</td>
-	<td>Increment</td>
-	<td>Start Date</td>
-	<td>End Date</td>
-	<td>Rating</td>
-	<td>Seller</td>
+	<td>Earnings</td>
 
 <%
 		try {
@@ -31,40 +24,105 @@
 			
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
-			ResultSet items_info = 
+			ResultSet clothing_info = 
 					stmt.executeQuery(
-			"select t1.item_id, t1.username, t1.bid_value, items.end_date, items.name, items.clothing_type from(select * from bids where bid_value in (select max(bid_value) from bids group by item_id) group by item_id) as t1 join items on t1.item_id = items.item_id where end_date < current_timestamp");
-			ResultSet total = stmt.executeQuery("select sum(bid_value) where items.");
-			while(items_info.next()) {
+"select t1.item_id, t1.username, sum(t1.bid_value) as total, items.end_date, items.name, items.clothing_type from(select * from bids where bid_value in (select max(bid_value) from bids group by item_id) group by item_id) as t1 join items on t1.item_id = items.item_id where end_date < current_timestamp group by items.clothing_type");
+			while(clothing_info.next()) {
 				%>
 				<tr>
-				<td><%=items_info.getInt("clothing_type") %></td>
-				<td><%=items_info.getString("name") %></td>
-				<td><%=items_info.getString("clothing_type") %></td>
-				<td><%=items_info.getInt("initial_price") %></td>
-				<td><%=items_info.getInt("increment") %></td>
-				<td><%=items_info.getTimestamp("start_date") %></td>
-				<td><%=items_info.getTimestamp("end_date") %></td>
-				<td><%=items_info.getInt("rating") %></td>
-				<td><%=items_info.getString("username") %></td>
+				<td><%=clothing_info.getString("clothing_type") %></td>
+				<td><%=clothing_info.getString("total") %></td>
 				</tr>
-<%
+				<%
 			}
+			%>
+			</table>
+			<table border="2">
+			<tr>
+			<td>Username</td>
+			<td>Earnings</td>
+			<%
+			clothing_info.close();
 			
-			items_info.close();
-			ResultSet get_current_time = stmt.executeQuery("SELECT CURRENT_TIMESTAMP");
-			get_current_time.next();
-			out.println("Current Time: " + get_current_time.getTimestamp("CURRENT_TIMESTAMP"));
-			
+			ResultSet user_info = 
+					stmt.executeQuery(
+"select t1.item_id, items.username, sum(t1.bid_value) as total, items.clothing_type from(select * from bids where bid_value in (select max(bid_value) from bids group by item_id)) as t1 join items on t1.item_id = items.item_id where end_date < current_timestamp");	
+			while(user_info.next()) {
+				%>
+				<tr>
+				<td><%=user_info.getString("username") %></td>
+				<td><%=user_info.getString("total") %></td>
+				</tr>
+				<%
+			}
+			user_info.close();
+			%>
+			</table>
+			<h3>Hats</h3>
+			<table border="2">
+			<tr>
+			<td>Item Type</td>
+			<td>Earnings</td>
+			<%
+			ResultSet hat_type_info = 
+					stmt.executeQuery(
+					"select sum(price) as total, hats.type from (select max(bid_value) price, item_id from bids group by item_id) as t1, hats where t1.item_id = hats.item_id group by hats.type");	
+			while(hat_type_info.next()) {
+				%>
+				<tr>
+				<td><%=hat_type_info.getString("type") %></td>
+				<td><%=hat_type_info.getString("total") %></td>
+				</tr>
+				<%
+			}
+			hat_type_info.close();
+			%>
+			</table>
+			<h3>Shirts</h3>
+			<table border="2">
+			<tr>
+			<td>Item Type</td>
+			<td>Earnings</td>
+			<%
+			ResultSet shirt_type_info = 
+					stmt.executeQuery(
+					"select sum(price) as total, shirts.type from (select max(bid_value) price, item_id from bids group by item_id) as t1, shirts where t1.item_id = shirts.item_id group by shirts.type");	
+			while(shirt_type_info.next()) {
+				%>
+				<tr>
+				<td><%=shirt_type_info.getString("type") %></td>
+				<td><%=shirt_type_info.getString("total") %></td>
+				</tr>
+				<%
+			}
+			shirt_type_info.close();
+			%>
+			</table>
+			<h3>Shoes</h3>
+			<table border="2">
+			<tr>
+			<td>Item Type</td>
+			<td>Earnings</td>
+			<%
+			ResultSet shoe_type_info = 
+					stmt.executeQuery(
+					"select sum(price) as total, shoes.type from (select max(bid_value) price, item_id from bids group by item_id) as t1, shoes where t1.item_id = shoes.item_id group by shoes.type");	
+			while(shoe_type_info.next()) {
+				%>
+				<tr>
+				<td><%=shoe_type_info.getString("type") %></td>
+				<td><%=shoe_type_info.getString("total") %></td>
+				</tr>
+				<%
+			}
+			shoe_type_info.close();
 		} catch (Exception e) {
-			//out.print(e);
-			out.println("an error has occurred.");%>
+			out.print(e);
+			//out.println("an error has occurred.");%>
 			<button type="button" name="back" onclick="history.back()">Try Again.</button>
 		<%
 		}
 		
 	%>
-
-</table>
 </body>
 </html>
