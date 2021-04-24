@@ -6,9 +6,14 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Sales Report</title>
 </head>
 <body>
+	<br>
+		<form method="post" action="login/logout_customer_form.jsp">
+		<input type="submit" value="Logout">
+		</form>
+	<br>
 <hr noshade size="16">
 <h2>Sales Report</h2>
 <table border="2">
