@@ -321,3 +321,14 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2018-07-10 13:49:53
+
+DROP TABLE IF EXISTS `lookingFor`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lookingFor` (
+  `item_name` varchar(50) NOT NULL DEFAULT '',
+  `username` varchar(50) NOT NULL DEFAULT '',
+  
+  PRIMARY KEY(`item_name`,`username`),
+   FOREIGN KEY (`username`) REFERENCES `users` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
