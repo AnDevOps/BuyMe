@@ -366,6 +366,13 @@
 		
 	%>
 	
+	<form action = "../search/bidHistory.jsp">
+						
+			<button type="submit" name="itemid" value = "<%=session.getAttribute("item_id")%>"> To Bid History</button>
+	</form>
+	<form action = "../search/similarItems.jsp">
+			<button type="submit" name="itemid" value = "<%=session.getAttribute("item_id")%>">To Similar Items</button>
+	</form>
 	
 
 </body>
