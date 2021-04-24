@@ -11,6 +11,12 @@
 </head>
 <body>
 
+<div align="center"> 
+<form action="../auction/auction_redirect.jsp">
+<input type="submit" value="Auction Page">
+</form>
+</div>
+
 	<%
 		try {
 			//Get the database connection
@@ -39,7 +45,6 @@
 			// user attribute used to allow whether they can bid or not
 			String user = (String)session.getAttribute("user"); 
 		
-			
 			if(item_request.next()) {	
 				int initialprice = item_request.getInt("initial_price");
 				session.setAttribute("initial_price",item_request.getInt("initial_price"));
@@ -49,22 +54,10 @@
 				String clothingtype = item_request.getString("clothing_type");%>
 				
 				<% // table to show item descriptions %>
-				<div align="left">
-				<br>
-				<form method="post" action="../auction/watchlist_attempt.jsp">
-				<input type="submit" value="add item to watchlist">
-				</form>
-				
-				</div>
 			
 				<div align="center">
-				<!-- logout form  -->			  
-			
-				<form method="post" action="../auction/auction_redirect.jsp">
-				<input type="submit" value="Auction Page">
-				</form>
 				<br>
-				<b><br>BuyMe Item</br></b>
+				<b><br>BuyMe Item Page</br></b>
 				<table border="2">
 				<tr>
 				<td>Item ID</td>
@@ -92,8 +85,9 @@
 				
 				<hr noshade size="16">
 				</div>
-			<% 
 			
+			
+			<% 
 			specific_item = stmt.executeQuery("select * from "+clothingtype+" where item_id = "+itemid+" ");
 			if(specific_item.next()) {%>
 				<%// item specifications (desc) %>
@@ -116,6 +110,13 @@
 				<td><%=specific_item.getString("clothing_type") %></td>
 				</tr>
 				</table>
+				
+				<div align="center">
+				<form method="post" action="../buyer/watchlist_attempt.jsp">
+				<input type="submit" value="Add Item To Watch List">
+				</form>
+				
+				</div>
 				<hr noshade size="16">
 				
 				<b><br>Auction Information</br></b>
@@ -305,27 +306,40 @@
 					<b><br>Auction Information</br></b>
 					
 					<%
-							
-					date_request = stmt.executeQuery("select * from bids where bid_value in (select max(bid_value) from bids group by item_id) and item_id = '"+item_id+"' ");
+						
+					// check_seller is used to check if the seller is accessing the page of something that has already been sold/not sold.
+					ResultSet check_seller = stmt.executeQuery("select username from items where item_id="+item_id+"");
+					if(check_seller.next()) {
+						String seller_name_check = check_seller.getString("username");
+						check_seller.close();
+						
+						date_request = stmt.executeQuery("select * from bids where bid_value in (select max(bid_value) from bids group by item_id) and item_id = '"+item_id+"' ");
 						//if we successfully query the max bid for the item check that the username = current user and that the current bid > reserve
-					if(date_request.next()) {
-						if ( (date_request.getString("username").equals(user)) && (date_request.getInt("bid_value") >= reserve) ){
-							%>
-							You have won this item!
-							<%
-						//else if max_bid > reserve - what do?
+								
+						if(date_request.next()) {
+							if ( (date_request.getString("username").equals(user)) && (date_request.getInt("bid_value") >= reserve) ){
+								%>
+								You have won this item!
+								<%
+					
+							} else if (seller_name_check.equals(user)) {
+						 		%>
+						 		The allocated time for this auction has ended. You have sold this item.
+						 		<% 
+							
+							//else if max_bid > reserve - what do?	
+							} else{
+								%>
+								You did not win this item! Better luck next time sport!
+								<%
+							}
 						}else{
-							%>
-							You did not win this item! Better luck next time sport!
-							<%
+						%> 
+						The allocated time for this auction has ended. There were no bids placed for this item.
+						<% 
 						}
-					}else{
-						out.println("The requested page for the item id does not exist.");
-						%>
-							<button type="button" name="back" onclick="history.back()">Try Again.</button>
-						<%
-					}
-				
+					} 
+					
 				//if query pulls nothing then the item_id is n/a
 				}else{
 					out.println("The requested page for the item id does not exist.");
@@ -334,8 +348,14 @@
 				<%
 				}
 				
+			} else {
+				// case where they request a non-existent item_id
+				out.println("The requested page for the item id does not exist.");
+				%>
+				<button type="button" name="back" onclick="history.back()">Try Again.</button>
+				<%
 			}
-			}
+		}
 		} catch (Exception e) {
 			out.print(e);
 			out.println("error has occured.");%>

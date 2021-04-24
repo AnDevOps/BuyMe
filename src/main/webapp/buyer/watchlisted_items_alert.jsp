@@ -14,7 +14,7 @@
 
 <div align='center'> 
 
-BuyMe Alert
+BuyMe WatchLists
 
 
 <!-- logout form  -->			  
@@ -27,12 +27,12 @@ BuyMe Alert
 <!-- go back to auction form  -->			  
 	<br>
 		<form method="post" action="../auction/auction_redirect.jsp">
-		<input type="submit" value="Login Page">
+		<input type="submit" value="Login Page"><button type="button" name="back" onclick="history.back()">Go Back</button>
 		</form>
 	<br>	
 
 <hr noshade size="16">
-<b><br>Alert: The items shown below are where another user has placed a bid higher than your current bid.</br></b>
+<b><br>Watch Lists: These are the items that the user wants to keep an eye on.</br></b>
 <table border="2">
 	<tr>
 	<td>Item ID</td>
@@ -60,7 +60,7 @@ BuyMe Alert
 			
 			
 			
-			ResultSet items_info = stmt.executeQuery("select * from items where item_id in (select t1.item_id from (select * from bids  where bid_value in (select max(bid_value) from bids group by item_id) group by item_id) as t1, (select *  from bids where bid_value in (select max(bid_value) from bids where username = '"+user+"' group by item_id) and username = '"+user+"' ) as t2 where t1.item_id = t2.item_id and t1.username = t2.username) and end_date > now();");
+			ResultSet items_info = stmt.executeQuery("select * from items where item_id in (select item_id from watchlists where username='"+user+"')");
 			while(items_info.next()) {
 				%>
 				<tr>
@@ -86,6 +86,20 @@ BuyMe Alert
 	%>
 
 </table>
+</div>
+
+<div align='center'> 
+
+		<form method="post" action="../auction/request_item_page.jsp">
+		<table>
+		<tr>    
+		<td>Item ID</td><td><input type="text" name="item_id"> <input type="submit" value="Access Item Page"> </td> 
+		</tr>
+		<tr><td>
+		</table>
+		</form>
+
+
 </div>
 
 

@@ -14,7 +14,7 @@
 
 <div align='center'> 
 
-BuyMe Login Page
+BuyMe Seller Old Auction Page
 
 
 <!-- logout form  -->			  
@@ -23,53 +23,16 @@ BuyMe Login Page
 		<input type="submit" value="Logout">
 		</form>
 	<br>
-
-<table> 
-<thead>
-<tr> 
-
-<!-- Customer Login -->
-<th> 
-<div class="card" style="width: 18rem;" >
-  <div class="card-body">
-    <h5 class="card-title">Buyer Options</h5>
-    <form method="post" action="buyer_home.jsp">
-    <input type ="submit" value="Access Buyer Page" >
-   
-    </form>
-  </div>
-</div>
-</th>
-
-<!-- Seller Page -->
-<th> 
-<div class="card" style="width: 18rem;" >
-  <div class="card-body">
-    <h5 class="card-title">Seller Options </h5>
-    <form method="post" action="../seller/seller_home.jsp">
-    <input type ="submit" value="Access Seller Page" >
-    </form>
-  </div>
-</div>
-</th>
-
-<th> 
-<div class="card" style="width: 18rem;" >
-  <div class="card-body">
-    <h5 class="card-title">Questions</h5>
-    <form method="post" action="question_home.jsp">
-    <input type ="submit" value="Access Questions Page" >
-    </form>
-  </div>
-</div>
-</th>
-
-</tr>
-</thead>
-</table>
+	
+<!-- go back to auction form  -->			  
+	<br>
+		<form method="post" action="../auction/auction_redirect.jsp">
+		<input type="submit" value="Login Page">
+		</form>
+	<br>	
 
 <hr noshade size="16">
-<b><br>Auction House</br></b>
+<b><br>User Old Auction Items</br></b>
 <table border="2">
 	<tr>
 	<td>Item ID</td>
@@ -88,9 +51,11 @@ BuyMe Login Page
 			ApplicationDB db = new ApplicationDB();	
 			Connection con = db.getConnection();	
 			
+			String user = (String)session.getAttribute("user"); 
+			
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
-			ResultSet items_info = stmt.executeQuery("select * from items where end_date > now()");
+			ResultSet items_info = stmt.executeQuery("select * from items where username='"+user+"' and now() > end_date");
 			while(items_info.next()) {
 				%>
 				<tr>
@@ -106,12 +71,6 @@ BuyMe Login Page
 				</tr>
 <%
 			}
-			
-			items_info.close();
-			ResultSet get_current_time = stmt.executeQuery("SELECT CURRENT_TIMESTAMP");
-			get_current_time.next();
-			out.println("Current Time: " + get_current_time.getTimestamp("CURRENT_TIMESTAMP"));
-			
 		} catch (Exception e) {
 			//out.print(e);
 			out.println("an error has occurred.");%>
@@ -137,6 +96,8 @@ BuyMe Login Page
 
 
 </div>
+
+
 
 
 

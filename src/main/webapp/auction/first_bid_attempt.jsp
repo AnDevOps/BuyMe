@@ -47,10 +47,21 @@
 			ps = con.prepareStatement(insert);
 			ps.setInt(1, item_id);
 			ps.setString(2, set_user);
+			
 			ps.executeUpdate();
-			out.println("success");
+			out.println("You have successfully placed an initial bid on the item.");
+			%> 
+			<br>
+			<form method="post" action="../auction/auction_redirect.jsp">
+			<input type="submit" value="Return to Auction">
+			</form>
+		<br>	
+			<% 
 		}else{
-			out.println("try again");
+			out.println("An error has occured.");
+			%>
+			<button type="button" name="back" onclick="history.back()">Try Again.</button>
+		<%
 		}
 		
 		

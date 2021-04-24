@@ -32,7 +32,7 @@ BuyMe Seller Page
 	<br>	
 
 <hr noshade size="16">
-<b><br>User Listed Items</br></b>
+<b><br>User Active Listed Items</br></b>
 <table border="2">
 	<tr>
 	<td>Item ID</td>
@@ -55,7 +55,7 @@ BuyMe Seller Page
 			
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
-			ResultSet items_info = stmt.executeQuery("select * from items where username='"+user+"'");
+			ResultSet items_info = stmt.executeQuery("select * from items where username='"+user+"' and end_date > now()");
 			while(items_info.next()) {
 				%>
 				<tr>
@@ -87,7 +87,7 @@ BuyMe Seller Page
 
 		<br>
 		<form method="post" action="../seller/create_auction.jsp">
-		<input type="submit" value="Create Auction">
+		<input type="submit" value="Create Auction"><input type="submit" value="Access Previously Listed Items" formaction="../seller/old_auctions.jsp">
 		</form>
 		<br>
 
