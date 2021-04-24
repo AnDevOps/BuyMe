@@ -50,6 +50,7 @@
 				session.setAttribute("initial_price",item_request.getInt("initial_price"));
 				int itemid = item_request.getInt("item_id");
 				int incrementamt = item_request.getInt("increment");
+				session.setAttribute("increment",item_request.getInt("increment"));
 				String username = item_request.getString("username");
 				String clothingtype = item_request.getString("clothing_type");%>
 				
