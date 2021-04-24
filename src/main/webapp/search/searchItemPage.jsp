@@ -40,7 +40,7 @@
 			int maxPrice = Integer.parseInt(request.getParameter("MaxPrice"));
 			String sortingMethod = request.getParameter("SortingMethod");
 			
-			String sqlQuery = "select * from(select t1.item_id, t1.username, items.start_date, items.end_Date, items.name, items.clothing_type, t1.bid_value ";
+			String sqlQuery = "select * from(select t1.item_id, items.username, items.start_date, items.end_Date, items.name, items.clothing_type, t1.bid_value ";
 			sqlQuery+= "from (select * from bids where bid_value in (select max(bid_value) from bids group by item_id) group by item_id) as t1, items ";
 			sqlQuery+= "where t1.item_id = items.item_id) as t2 ";
 			sqlQuery+= "join " + qType + " on t2.item_id = " + qType + ".item_id";
@@ -48,8 +48,7 @@
 			sqlQuery += " where ";
 			sqlQuery+= qType + ".gender = '";
 			sqlQuery += gender; 
-			sqlQuery+= "'";
-			sqlQuery += "and t2.end_date < now()";
+			sqlQuery+= "' and t2. end_date > now()";
 			if(name != ""){
 				sqlQuery += " and (";
 				sqlQuery+= "t2.name = '";

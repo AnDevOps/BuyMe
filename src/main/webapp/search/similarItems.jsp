@@ -10,6 +10,16 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<div style ="overflow-y:auto" align='center'>
+	<table border="2">
+	<tr>
+	<td>Item ID</td>
+	<td>Size</td>
+	<td>Gender</td>
+	<td>Color</td>
+	<td>Type</td>
+	
+	</tr>
 	<%
 	try{
 		int itemid = Integer.parseInt(request.getParameter("itemid"));
@@ -17,7 +27,7 @@
 		Connection con = db.getConnection();  
 		
 		Statement stmt = con.createStatement(); 
-		String sql = "select clothing_type from items where items.item_id =" + itemid + ";";
+		String sql = "select clothing_type from items where items.item_id =" + itemid + " and items.end_date > now();";
 		System.out.println(sql);
 		ResultSet result = stmt.executeQuery(sql);
 		result.next(); 
@@ -32,16 +42,7 @@
 		result = stmt.executeQuery(sql);
 		
 	%>
-	<div style ="overflow-y:auto" align='center'>
-	<table border="2">
-	<tr>
-	<td>Item ID</td>
-	<td>Size</td>
-	<td>Gender</td>
-	<td>Color</td>
-	<td>Type</td>
-	
-	</tr>
+
 	
 	<% 
 		while(result.next()){

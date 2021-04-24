@@ -73,7 +73,7 @@
 			<form method="post" action="removeAlert.jsp">
 			<table>
 			<tr>    
-			<td>Item ID</td><td><input type="text" name="item_name"> <input type="submit" value="Remove Alert"> </td> 
+			<td>Item Name</td><td><input type="text" name="item_name"> <input type="submit" value="Remove Alert"> </td> 
 			</tr>
 			<tr><td>
 			</table>
