@@ -49,6 +49,7 @@
 			sqlQuery+= qType + ".gender = '";
 			sqlQuery += gender; 
 			sqlQuery+= "'";
+			sqlQuery += "and t2.end_date < now()";
 			if(name != ""){
 				sqlQuery += " and (";
 				sqlQuery+= "t2.name = '";
