@@ -365,7 +365,7 @@
 		}
 		
 	%>
-	
+	<hr noshade size="16">
 	<form action = "../search/bidHistory.jsp">
 						
 			<button type="submit" name="itemid" value = "<%=session.getAttribute("item_id")%>"> To Bid History</button>
