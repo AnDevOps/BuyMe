@@ -13,8 +13,8 @@
 	
 
 <div align='center'> 
-
-BuyMe Login Page
+<%String username = (String)session.getAttribute("user"); %>
+BuyMe Login Page (<%=username%>)
 
 
 <!-- logout form  -->			  
@@ -134,6 +134,17 @@ BuyMe Login Page
 		<tr><td>
 		</table>
 		</form>
+		
+		<br>
+
+<div class="card" style="width: 18rem;" >
+  <div class="card-body">
+    <h5 class="card-title"></h5>
+    <form method="post" action="../search/chooseQueryPage.jsp">
+    <input type ="submit" value="go to search page" >
+    </form>
+  </div>
+</div>
 
 
 </div>
