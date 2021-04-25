@@ -36,9 +36,11 @@ Item Information
 		<tr><td><label for="item_initial_price">Initial Amount:</label><input type="text" id="item_initial_price" name="initial_price"></td></tr>
 		<tr><td><label for="item_increment_price">Increment Amount:</label><input type="text" id="item_increment_price" name="increment"></td></tr>
 		<tr><td><label for="item_size">Size: </label><input type="text" id="item_size" name="size"></td></tr>
-		<tr><td><label for="item_gender">Gender: </label><input type="text" id="item_gender" name="gender"></td></tr>
 		<tr><td><label for="item_color">Color: </label><input type="text" id="item_color" name="color"></td></tr>
 		<tr><td><label for="item_type">Type: </label><input type="text" id="item_type" name="type"></td></tr>
+		<tr><td><br></br></td></tr>
+		<tr><td>(case sensitive: Male, Female)</td></tr>
+		<tr><td><label for="item_gender">Gender: </label><input type="text" id="item_gender" name="gender"></td></tr>
 		<tr><td><br></br></td></tr>
 		<tr><td>(minimum win must >= initial price)</td></tr>
 		<tr><td>(set minimum to 0 if no reserve)</td></tr>
