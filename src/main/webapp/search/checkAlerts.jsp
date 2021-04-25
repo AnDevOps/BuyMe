@@ -19,7 +19,9 @@
 		//Create sql statement 
 		Statement stmt = con.createStatement(); 
 		String sqlQuery = "select * from items, lookingfor where lookingfor.username = '" + user + "' and items.name = lookingfor.item_name and items.username != '" + user + "';";
+		System.out.println(sqlQuery);
 		ResultSet result = stmt.executeQuery(sqlQuery);
+		
 		if(result == null){ 
 			%>
 			<form method="post" action="chooseQueryPage.jsp">

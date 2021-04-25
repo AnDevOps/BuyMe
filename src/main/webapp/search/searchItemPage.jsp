@@ -39,7 +39,7 @@
 			String color = request.getParameter("color");
 			int maxPrice = Integer.parseInt(request.getParameter("MaxPrice"));
 			String sortingMethod = request.getParameter("SortingMethod");
-			
+			System.out.println(sortingMethod);
 			String sqlQuery = "select * from(select t1.item_id, items.username, items.start_date, items.end_Date, items.name, items.clothing_type, t1.bid_value ";
 			sqlQuery+= "from (select * from bids where bid_value in (select max(bid_value) from bids group by item_id) group by item_id) as t1, items ";
 			sqlQuery+= "where t1.item_id = items.item_id) as t2 ";
@@ -54,7 +54,7 @@
 				sqlQuery+= "t2.name = '";
 				sqlQuery+= name; 
 				sqlQuery+= "' or t2.name like '";
-				sqlQuery+= name + "%')";
+				sqlQuery+= name + "%' or t2.name like '%"+name+"%')";
 			
 			}
 			
@@ -69,12 +69,13 @@
 				sqlQuery+= " and t2.bid_value < " + maxPrice; 
 			}
 			
-			if(sortingMethod == "alphabetical"){
+			if(sortingMethod.equals("alphabetical")){
 				sqlQuery+= " order by type";
-			} else if(sortingMethod == "ascendingPrice"){
-				sqlQuery+= " order by current_offer ";
-			} else if(sortingMethod == "descendingPrice"){
-				sqlQuery+= " order by current_offer desc";
+			} else if(sortingMethod.equals("ascendingPrice")){
+				sqlQuery+= " order by bid_value ";
+			} else if(sortingMethod.equals("descendingPrice")){
+				
+				sqlQuery+= " order by bid_value desc";
 			}
 			System.out.println("hello");
 			sqlQuery+= ";";

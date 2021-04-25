@@ -27,7 +27,7 @@
 		String username = request.getParameter("userName");
 		String sqlQuery = "select * from users where username != 'default_bid'";
 		if(username != ""){
-			sqlQuery += "where username = '" + username + "' or username like '" + username + "%'";
+			sqlQuery += " and username = '" + username + "' or username like '" + username + "%'";
 		}
 		sqlQuery+=";";
 		System.out.println(sqlQuery);
