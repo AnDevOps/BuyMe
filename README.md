@@ -118,7 +118,8 @@ This will take you to another page where you can input the name of the item you 
 After logging through the admin login page, the admin is redirected to the admin home page, where there are two columns. 
 The first is labeled Customer Service Representatives and contains two buttons labeled Register and Delete Account. 
 The Register button redirects the admin to a form to create a new customer service representative account. 
-The Delete Account button redirects the admin to a form to delete an existing customer service representative account. 
+The Delete Account button redirects the admin to a form to delete an existing customer service representative account.
+
 On the second column of the admin home page is labeled Generate Sales Report and contains a button labeled Generate. 
 Clicking the button redirects the admin to a new page that generates a column of tables. 
 The top table contains the total earnings earned by each general clothing type. 
@@ -130,4 +131,16 @@ At the bottom is the table of the top 5 users with the most auctions won.
 (Customer Service Representative)
 The customer representative home page can navigated to from the login button on the front page.
 The Customer Representative Home has three columns.
-The first column his a form to edit current customer information
+-- Edit Users Account Information
+- The first column his a form to edit current customer information. Input the account username to identify the user account to be edited, clicking the edit button under the form will edit the user account information to the change password and email fields if they are not empty.
+
+-- Delete Auctions and Bids
+- The second column contains a button labeled delete auction which redirects the customer service representative to the delete auction page. The delete auciton page contains 3 rows. 
+  -  The top row is a form with a item ID field to identify the item to be deleted, a selection field to identify the clothing category of the item to be deleted, and a submit button to delete the item.
+  -  The middle row is another form with the same item ID and clothing type selection field. Clicking the submit button redirects the representative to the delete bids page where they can view all the bids on the identified item in the shown table and can remove bids by inputting the item ID, name, bid value and max bid fields at the top of the page.
+  -  The bottom row conatins a table with all of the current auctions in the database.
+
+-- Questions and Answers
+- The third column contains a button that redirects the customer service representative to the answer questions page. The page has a form at the top with an answer and question ID field. The representative can read and identify questions to answer in the table below the form.
+
+- Users can ask questions for customer representatives to answer by logging in through the front page and clicking on the access questions page on the top right of the auction home page for users. This redirects the user to a page containing a form to input and submit questions and a table containing questions and answers stored in the database for the user to read.
