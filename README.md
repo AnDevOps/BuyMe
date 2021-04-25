@@ -17,7 +17,7 @@ IV. Browsing and Advanced Search Functionality => Alva Bandy
 
 V. Admin and customer rep functions => Aris Chung
 
-# Auctions (Manual) Details
+# Auctions (Manual) 
 
 -- On successful registration and login, the user will be redirected to the user auction page.
 
@@ -81,9 +81,9 @@ V. Admin and customer rep functions => Aris Chung
   -- a user is able to set a max (ceiling) bid.
   
 
-# Auctions (Automatic) Details
+# Auctions (Automatic) 
 
-# Browsing and Advanced Search Functionality Details
+# Browsing and Advanced Search Functionality 
 
-# Admin and customer rep functions Details
+# Admin and customer rep functions 
 
