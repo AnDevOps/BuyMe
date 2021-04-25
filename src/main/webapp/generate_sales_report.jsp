@@ -71,7 +71,7 @@
 			<%
 			ResultSet hat_type_info = 
 					stmt.executeQuery(
-					"select sum(price) as total, hats.type from (select max(bid_value) price, item_id from bids group by item_id) as t1, hats where t1.item_id = hats.item_id group by hats.type");	
+					"select sum(price) as total, hats.type from (select max(bid_value) price, bids.item_id from bids, items where bids.item_id=items.item_id and end_date < current_timestamp() group by bids.item_id) as t1, hats where t1.item_id = hats.item_id group by hats.type");	
 			while(hat_type_info.next()) {
 				%>
 				<tr>
@@ -91,7 +91,7 @@
 			<%
 			ResultSet shirt_type_info = 
 					stmt.executeQuery(
-					"select sum(price) as total, shirts.type from (select max(bid_value) price, item_id from bids group by item_id) as t1, shirts where t1.item_id = shirts.item_id group by shirts.type");	
+					"select sum(price) as total, shirts.type from (select max(bid_value) price, bids.item_id from bids, items where bids.item_id=items.item_id and end_date < current_timestamp() group by bids.item_id) as t1, shirts where t1.item_id = shirts.item_id group by shirts.type");	
 			while(shirt_type_info.next()) {
 				%>
 				<tr>
@@ -111,7 +111,7 @@
 			<%
 			ResultSet shoe_type_info = 
 					stmt.executeQuery(
-					"select sum(price) as total, shoes.type from (select max(bid_value) price, item_id from bids group by item_id) as t1, shoes where t1.item_id = shoes.item_id group by shoes.type");	
+					"select sum(price) as total, shoes.type from (select max(bid_value) price, bids.item_id from bids, items where bids.item_id=items.item_id and end_date < current_timestamp() group by bids.item_id) as t1, shoes where t1.item_id = shoes.item_id group by shoes.type");	
 			while(shoe_type_info.next()) {
 				%>
 				<tr>
@@ -121,6 +121,84 @@
 				<%
 			}
 			shoe_type_info.close();
+			%>
+			</table>
+			<h3>Best Selling Items</h3>
+			<h4>Shirts</h4>
+			<table border="2">
+			<tr>
+			<td>Item Type</td>
+			<td>Units Sold</td>
+			<%
+			ResultSet shirtb_type_info = 
+					stmt.executeQuery(
+					"select count(price) as units, shirts.type from (select max(bid_value) price, item_id from bids) as t1, shirts group by shirts.type limit 5");	
+			while(shirtb_type_info.next()) {
+				%>
+				<tr>
+				<td><%=shirtb_type_info.getString("type") %></td>
+				<td><%=shirtb_type_info.getString("units") %></td>
+				</tr>
+				<%
+			}
+			shirtb_type_info.close();
+			%></table>
+			<h4>Shoes</h4>
+			<table border="2">
+			<tr>
+			<td>Item Type</td>
+			<td>Units Sold</td>
+			<%
+			ResultSet shoesb_type_info = 
+					stmt.executeQuery(
+					"select count(price) as units, shoes.type from (select max(bid_value) price, item_id from bids) as t1, shoes group by shoes.type limit 5");	
+			while(shoesb_type_info.next()) {
+				%>
+				<tr>
+				<td><%=shoesb_type_info.getString("type") %></td>
+				<td><%=shoesb_type_info.getString("units") %></td>
+				</tr>
+				<%
+			}
+			shoesb_type_info.close();
+			%></table>
+			<h4>Hats</h4>
+			<table border="2">
+			<tr>
+			<td>Item Type</td>
+			<td>Units Sold</td>
+			<%
+			ResultSet hatsb_type_info = 
+					stmt.executeQuery(
+					"select count(price) as units, hats.type from (select max(bid_value) price, item_id from bids) as t1, hats group by hats.type limit 5");	
+			while(hatsb_type_info.next()) {
+				%>
+				<tr>
+				<td><%=hatsb_type_info.getString("type") %></td>
+				<td><%=hatsb_type_info.getString("units") %></td>
+				</tr>
+				<%
+			}
+			hatsb_type_info.close();
+			%></table>
+			<h3>Best Buyers</h3>
+			<table border="2">
+			<tr>
+			<td>Username</td>
+			<td>Bids Won</td>
+			<%
+			ResultSet buyer_type_info = 
+					stmt.executeQuery(
+					"select bids.username, count(bids.username) as won_bids from bids, items, (select max(bid_value) as bid_value, item_id from bids group by item_id) t0 where bids.bid_value = t0.bid_value and bids.item_id = t0.item_id and bids.item_id = items.item_id and end_date <= now() group by username order by won_bids desc limit 5");
+					while(buyer_type_info.next()) {
+				%>
+				<tr>
+				<td><%=buyer_type_info.getString("username") %></td>
+				<td><%=buyer_type_info.getString("won_bids") %></td>
+				</tr>
+				<%
+			}
+			%></table><%
 		} catch (Exception e) {
 			out.print(e);
 			//out.println("an error has occurred.");%>
