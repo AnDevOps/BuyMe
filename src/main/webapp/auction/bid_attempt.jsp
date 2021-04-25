@@ -106,6 +106,10 @@
 							set_bid = max_bid;
 							set_max = max_bid;
 							out.println("you did not bid high enough, try again");
+							%>
+		                    <button type="button" name="back" onclick="history.back()">Item Page</button>
+		                    <% 
+							
 						}
 					}else if (bid_value_new < max_bid){
 						
@@ -124,12 +128,20 @@
 							set_bid = max_bid;
 							set_max = max_bid;
 							out.println("you did not bid high enough, try again");
+							%>
+		                    <button type="button" name="back" onclick="history.back()">Item Page</button>
+		                    <% 
+							
 						}else if (max_bid_new < max_bid){
 							//'update' old bid with old bid = new max bid
 							set_user = user_prev_highestbid;
 							set_bid = bid_value_new;
 							set_max = max_bid;
 							out.println("you did not bid high enough, try again");
+							%>
+		                    <button type="button" name="back" onclick="history.back()">Item Page</button>
+		                    <% 
+							
 						}
 					
 				}
