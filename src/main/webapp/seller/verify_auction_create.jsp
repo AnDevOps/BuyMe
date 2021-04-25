@@ -60,7 +60,7 @@
 			 && !(item_minimum.matches("[a-zA-Z]+"))// checks if minimum price is all numbers
 			 && (initialprice > 0 )
 			 && (incrementprice > 0 )
-) { 
+			 && (item_gender.equals("Male") || item_gender.equals("Female"))) { 
 				
 				// find the item id
 				ResultSet find_item_id = stmt.executeQuery("select max(item_id) from items");
