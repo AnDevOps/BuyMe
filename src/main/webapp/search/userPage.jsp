@@ -103,6 +103,10 @@
 		
 	}
 	%>
-
+			
+<form method="post" action="chooseQueryPage.jsp" align = "center">
+<input type ="submit" value="back to search" >
+</form>
+		
 </body>
 </html>
