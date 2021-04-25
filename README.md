@@ -114,4 +114,20 @@ Back on the query page there is also a button to check the alerts that the user 
 This will take you to another page where you can input the name of the item you want to be alerted for if an auction is made. This requires an exact match on the name. 
 
 # Admin and customer rep functions 
+(Admin)
+After logging through the admin login page, the admin is redirected to the admin home page, where there are two columns. 
+The first is labeled Customer Service Representatives and contains two buttons labeled Register and Delete Account. 
+The Register button redirects the admin to a form to create a new customer service representative account. 
+The Delete Account button redirects the admin to a form to delete an existing customer service representative account. 
+On the second column of the admin home page is labeled Generate Sales Report and contains a button labeled Generate. 
+Clicking the button redirects the admin to a new page that generates a column of tables. 
+The top table contains the total earnings earned by each general clothing type. 
+Directly under the first table is a table of the earnings of each seller on the site. 
+Under that table contains the tables for each subcategories of each clothing type and the total earnings of each subcategory. 
+Under these tables are the tables of the 5 best selling subcategories for each clothing type and the number of units sold of each subcatergory. 
+At the bottom is the table of the top 5 users with the most auctions won.
 
+(Customer Service Representative)
+The customer representative home page can navigated to from the login button on the front page.
+The Customer Representative Home has three columns.
+The first column his a form to edit current customer information
