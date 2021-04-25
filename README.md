@@ -93,6 +93,25 @@ For alerts when someone outbids more than their upper limit, users have various 
 Of course, when an auction ends (closing time)whoever has the highest bid is eligible to be the winner, the site will check their bid against the sellers set reserve price to determine if they have won the item.
 
 # Browsing and Advanced Search Functionality 
+The auction_home page lists all existing auctions and the user can select an auction from this page by inputting the item_id into the input bar on the bottom. From this page you can press a button to go to the search page. 
+
+On this page there are different queries that the user can decide to use. This includes, sorting method (alphabetical, ascending price, and descending price), clothing type, max price, gender, color and name. They can also search for users by username. There are two separate buttons for searching a user and searching an item. 
+
+Once you have selected your queries you can press the search button and this will take you to a page that displays all items that match your queries in a table. If there are no matching results the table will be empty. Under the table is an input bar where the user can input the item_id of the item they wish to view. This will then take them to the individual items page. 
+
+On this page there is various information on the item, some functionality that is explained in the auction section, and two buttons. One of these is the bid history button and the other is the similar item button. Each taking you to the corresponding page. 
+
+The bid history page lists all bids made on the item in a table. If there are no bids then the table is empty. 
+
+The similar item page lists all the items of the same type in a table. If there are no similar items then the table is empty. Under the table is a input bar that allows you to go to the page for an item of your choosing, using item_id. 
+
+From the query page, searching a username will result in all users (including yourself) that either exactly match or begin with the user input. From this page you can input the full username into the input bar underneath the table of users. This will take you to the individual user page. 
+
+The user page lists all bids that the user has made in one table and all sales they have made in the other. 
+
+Back on the query page there is also a button to check the alerts that the user has made. This will take you to a page that lists items that match the alerts that the user has made. This is empty if there are no matches or if no alerts have been made yet. Under the table is a search bar to select the item_id from the table and go to the item's page. The other is to remove an alert by inputting its exact name. There is also a button to create alerts. 
+
+This will take you to another page where you can input the name of the item you want to be alerted for if an auction is made. This requires an exact match on the name. 
 
 # Admin and customer rep functions 
 
