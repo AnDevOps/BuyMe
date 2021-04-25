@@ -44,13 +44,14 @@
 			
 			// user attribute used to allow whether they can bid or not
 			String user = (String)session.getAttribute("user"); 
+			String default_bid = "default_bid";
 		
 			if(item_request.next()) {	
 				int initialprice = item_request.getInt("initial_price");
 				session.setAttribute("initial_price",item_request.getInt("initial_price"));
+				session.setAttribute("increment",item_request.getInt("increment"));
 				int itemid = item_request.getInt("item_id");
 				int incrementamt = item_request.getInt("increment");
-				session.setAttribute("increment",item_request.getInt("increment"));
 				String username = item_request.getString("username");
 				String clothingtype = item_request.getString("clothing_type");%>
 				
@@ -314,7 +315,7 @@
 						String seller_name_check = check_seller.getString("username");
 						check_seller.close();
 						
-						date_request = stmt.executeQuery("select * from bids where bid_value in (select max(bid_value) from bids group by item_id) and item_id = '"+item_id+"' ");
+						date_request = stmt.executeQuery("select bids.item_id, bids.bid_value, bids.username from bids, (select max(bid_value) as bid_value, item_id from bids group by item_id) t0 where bids.bid_value = t0.bid_value and bids.item_id = t0.item_id and bids.username!= '"+default_bid+"' and bids.item_id='"+item_id+"'");
 						//if we successfully query the max bid for the item check that the username = current user and that the current bid > reserve
 								
 						if(date_request.next()) {
@@ -365,9 +366,9 @@
 		}
 		
 	%>
-	<hr noshade size="16">
+		<hr noshade size="16">
 	<form action = "../search/bidHistory.jsp">
-						
+
 			<button type="submit" name="itemid" value = "<%=session.getAttribute("item_id")%>"> To Bid History</button>
 	</form>
 	<form action = "../search/similarItems.jsp">
