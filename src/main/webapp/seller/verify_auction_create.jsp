@@ -56,8 +56,9 @@
 			 && !(item_type.matches("[0-9]+")) // checks if the item is all letters
 			 && !(initial_price.matches("[a-zA-Z]+")) // checks if initial price is all numbers
 			 && !(increment_price.matches("[a-zA-Z]+"))  // checks if increment priec is all numbers
-			 && !(item_minimum.matches("[a-zA-Z]+"))// checks if minimum price is all numbers
-) { 
+			 && !(item_minimum.matches("[a-zA-Z]+"))
+			 && Integer.valueOf(initial_price) > 0
+			 && Integer.valueOf(increment_price) > 0) {
 				
 				// find the item id
 				ResultSet find_item_id = stmt.executeQuery("select max(item_id) from items");
@@ -97,7 +98,7 @@
 					// run the update.
 					ps.executeUpdate();
 				} else {
-					out.println("Please try again. The end-date must be a time period beyond the current time. \n");
+					out.println("Please try again. In-correct values were entered.\n");
 				}
 				
 				// reset the parameters
