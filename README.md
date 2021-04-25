@@ -8,9 +8,13 @@
 
 # work division
 I. creation of users, login, logout => Andy Lam
+
 II. Auctions (Manual) => Andy Lam
+
 III. Auctions (Automatic) => Skyler Chen
+
 IV. Browsing and Advanced Search Functionality => Alva Bandy
+
 V. Admin and customer rep functions => Aris Chung
 
 # Auctions (Manual) Details
