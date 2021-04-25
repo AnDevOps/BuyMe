@@ -60,7 +60,7 @@ BuyMe WatchLists
 			
 			
 			
-			ResultSet items_info = stmt.executeQuery("select * from items where item_id in (select item_id from watchlists where username='"+user+"')");
+			ResultSet items_info = stmt.executeQuery("select * from items where item_id in (select item_id from watchlists where username='"+user+"') and current_timestamp < end_date;");
 			while(items_info.next()) {
 				%>
 				<tr>
