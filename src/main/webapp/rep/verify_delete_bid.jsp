@@ -39,7 +39,7 @@
 		}
 		
 	%>
-	<form method="post" action="delete_bid.jsp">
+	<form method="post" action="representative_home.jsp">
     			<input type ="submit" value="Back" >
   </form>
 </body>

@@ -20,21 +20,18 @@
 			Statement stmt = con.createStatement();
 			//Get parameters from the HTML form at the index.jsp
 			String username = request.getParameter("username");
-			String password = request.getParameter("password");
-			String name = request.getParameter("name");
-			
-
 			
 			ResultSet login_info = stmt.executeQuery("select * from users where username='"+username+"'");
-
+			PreparedStatement pre = con.prepareStatement("SET FOREIGN_KEY_CHECKS=0");
+			PreparedStatement post = con.prepareStatement("SET FOREIGN_KEY_CHECKS=1");
+			pre.executeUpdate();
 			if(login_info.next() && username != null && username.length() != 0) {
 				PreparedStatement ps = con.prepareStatement("delete from users where username=?");
 				ps.setString(1, username);
 				//Run the query against the DB
 				ps.executeUpdate();
-				
+				post.executeUpdate();
 				out.println("User account has been successfully deleted."); %>
-				
 				<form method="post" action="../rep/representative_home.jsp">
     			<input type ="submit" value="Back" >
 
@@ -48,8 +45,8 @@
 			}
 
 		} catch (Exception e) {
-			//out.print(e);
-			out.println("Login Failed. Invalid login credentials.!");%>
+			out.print(e);
+			//out.println("Login Failed. Invalid login credentials.!");%>
 			<button type="button" name="back" onclick="history.back()">Try Again.</button>
 		<%
 		}

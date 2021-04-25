@@ -55,7 +55,7 @@
 
 		} catch (Exception e) {
 			//out.print(e);
-			out.println("Login Failed. Invalid login credentials.!");%>
+			out.println("Failed to make new representative");%>
 			<button type="button" name="back" onclick="history.back()">Try Again.</button>
 		<%
 		}

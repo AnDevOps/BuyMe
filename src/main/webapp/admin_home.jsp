@@ -7,6 +7,11 @@
 <title>Admin Home</title>
 </head>
 <body>
+	<br>
+		<form method="post" action="login/logout_customer_form.jsp">
+		<input type="submit" value="Logout">
+		</form>
+	<br>
 <table> 
 <thead>
 <tr> 

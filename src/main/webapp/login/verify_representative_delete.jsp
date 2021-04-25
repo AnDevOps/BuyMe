@@ -19,23 +19,20 @@
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
 			//Get parameters from the HTML form at the index.jsp
-			String username = request.getParameter("username");
-			String password = request.getParameter("password");
-			String email = request.getParameter("email");
-			
+			String username = request.getParameter("username");			
 
 			
 			ResultSet login_info = stmt.executeQuery("select * from customerservicerep where username='"+username+"'");
 
 			if(login_info.next() && username != null && username.length() != 0) {
-				PreparedStatement ps = con.prepareStatement("delete from customerservicerep where username=? and password=? and email=?");
-				ps.setString(1, username); ps.setString(2, password); ps.setString(3, email);
+				PreparedStatement ps = con.prepareStatement("delete from customerservicerep where username=?");
+				ps.setString(1, username);
 				//Run the query against the DB
 				ps.executeUpdate();
 				
 				out.println("User account has been successfully deleted."); %>
 				
-				<form method="post" action="../login/admin_home.jsp">
+				<form method="post" action="../admin_home.jsp">
     			<input type ="submit" value="Back" >
 
     			</form>
