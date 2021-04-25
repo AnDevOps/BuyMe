@@ -82,6 +82,15 @@ V. Admin and customer rep functions => Aris Chung
   
 
 # Auctions (Automatic) 
+From the auction_home screen or any other page that allows users to access items,
+Users can redirect to item pages, on these specific item pages… 
+
+If the current user is allowed to bid on the current item (not seller of item, auction is ongoing) 
+They will be allowed to place automatic max bids(secret upper limit) along with their normal bids
+Should another user bid more than their bids, the auto bid mechanic will increment the current user’s bid to bid higher automatically
+For alerts when someone outbids more than their upper limit, users have various ways to be alerted, including going to their buyer home page and looking there, or checking bid status on the item page directly
+
+Of course, when an auction ends (closing time)whoever has the highest bid is eligible to be the winner, the site will check their bid against the sellers set reserve price to determine if they have won the item.
 
 # Browsing and Advanced Search Functionality 
 
