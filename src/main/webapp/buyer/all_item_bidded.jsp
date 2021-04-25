@@ -59,7 +59,7 @@
 			Statement stmt = con.createStatement();
 			
 			
-			ResultSet items_info = stmt.executeQuery("select * from items where item_id in (select item_id from bids where bid_value in (select max(bid_value) from bids where username = '"+user+"'group by item_id) and username = '"+user+"')");
+			ResultSet items_info = stmt.executeQuery("select * from items where item_id in (select item_id from bids where bid_value in (select max(bid_value) from bids where username = '"+user+"'group by item_id) and username = '"+user+"') ");
 
 			while(items_info.next()) {
 				%>
