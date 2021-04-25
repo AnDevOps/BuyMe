@@ -17,7 +17,7 @@
 		Connection con = db.getConnection(); 
 		
 		Statement stmt = con.createStatement(); 
-		String sql = "select * from bids where bids.item_id = " + itemid + ";";
+		String sql = "select * from bids where bids.item_id = " + itemid + " and username != 'default_bid';";
 		ResultSet result = stmt.executeQuery(sql);
 		%>
 		
