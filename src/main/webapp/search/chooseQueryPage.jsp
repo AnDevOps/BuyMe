@@ -49,8 +49,8 @@
 			<tr>
 				<td>
 					<select name="gender">
-						<option value="Men">Mens</option>
-						<option value="Women">Womens</option>
+						<option value="Male">Male</option>
+						<option value="Female">Female</option>
 					</select>
 				</td>
 			</tr>
