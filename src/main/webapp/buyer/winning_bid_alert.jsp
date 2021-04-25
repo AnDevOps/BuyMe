@@ -54,13 +54,13 @@
 			Connection con = db.getConnection();	
 			
 			String user = (String)session.getAttribute("user"); 
+			String default_bid = "default_bid";
 			
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
 			
+			ResultSet items_info = stmt.executeQuery("select * from items where item_id in (select t2.item_id from (select bids.item_id, bids.bid_value, bids.username from bids, (select max(bid_value) as bid_value, item_id from bids group by item_id) t0 where bids.bid_value = t0.bid_value and bids.item_id = t0.item_id and bids.username!= '"+default_bid+"') as t1, (select *  from bids where bid_value in (select max(bid_value) from bids where username = '"+user+"' group by item_id) and username = '"+user+"' ) as t2 where t1.item_id = t2.item_id and t2.username = t1.username ) and end_date > now()");
 			
-			ResultSet items_info = stmt.executeQuery("select * from items where item_id in (select t1.item_id from (select * from bids  where bid_value in (select max(bid_value) from bids group by item_id) group by item_id) as t1, (select *  from bids where bid_value in (select max(bid_value) from bids where username = '"+user+"' group by item_id) and username = '"+user+"' ) as t2 where t1.item_id = t2.item_id and t1.username = t2.username) and end_date > now();");
-
 			while(items_info.next()) {
 				%>
 				<tr>
